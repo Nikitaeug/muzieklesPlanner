@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\timeSlot>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TimeSlot>
  */
 class TimeSlotFactory extends Factory
 {
@@ -17,7 +17,8 @@ class TimeSlotFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'start_time' => fake()->time(),
+            'end_time' => fake()->time(),
         ];
     }
 }

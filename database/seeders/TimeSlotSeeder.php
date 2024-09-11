@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\TimeSlot;
 
 class TimeSlotSeeder extends Seeder
 {
@@ -12,6 +12,6 @@ class TimeSlotSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        TimeSlot::factory()->count(10)->create();
     }
 }

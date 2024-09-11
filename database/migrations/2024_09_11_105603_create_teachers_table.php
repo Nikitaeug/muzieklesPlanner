@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone_number')->nullable();
-            $table->string('specialization'); // Instrument of vakgebied
-            $table->text('availability'); // JSON of string met beschikbare tijdslots
+            $table->string('specialization');
+            $table->text('availability');
             $table->timestamps();
         });
     }
