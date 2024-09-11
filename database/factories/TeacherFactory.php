@@ -17,11 +17,11 @@ class TeacherFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'phone_number' => $this->faker->optional()->phoneNumber(),
-            'specialization' => $this->faker->word(),
-            'availability' => $this->faker->randomElement(['{"monday": "9-5"}', '{"tuesday": "10-4"}']), // Example JSONY
+            'name' => fake()->name(), 
+            'email' => fake()->unique()->safeEmail(),
+            'phone_number' => fake()->optional()->phoneNumber(), 
+            'specialization' => fake()->word(),
+            'availability' => fake()->randomElement(['{"monday": "9-5"}', '{"tuesday": "10-4"}']),
         ];
     }
 }

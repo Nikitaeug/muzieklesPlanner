@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class timeSlot extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'start_time',
+        'end_time',
+    ];
 }

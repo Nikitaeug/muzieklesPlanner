@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class musicLesson extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+    'teacher_id',
+    'student_id',
+    'date',
+    'start_time',
+    'end_time',
+    'status',
+    'is_proefles',
+    ];
 }

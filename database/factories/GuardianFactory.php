@@ -19,7 +19,7 @@ class GuardianFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail,
-            'phone' => fake()->phoneNumber(),
+            'phone_number' => fake()->phoneNumber(),
         ];
     }
 }
