@@ -1,2 +1,3 @@
 Nikita notes:
 git fetch --prune voor alle branches refreshen
+git checkout main 
