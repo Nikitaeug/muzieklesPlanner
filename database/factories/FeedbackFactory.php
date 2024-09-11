@@ -3,9 +3,10 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Teacher;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\feedback>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Feedback>
  */
 class FeedbackFactory extends Factory
 {
@@ -17,7 +18,8 @@ class FeedbackFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'content' => fake()->paragraph(),
+            'teacher_id' => Teacher::inRandomOrder()->first()->id,
         ];
     }
 }
