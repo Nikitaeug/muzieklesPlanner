@@ -7,11 +7,9 @@ use App\Models\TimeSlot;
 
 class TimeSlotSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
-        TimeSlot::factory()->count(10)->create();
+        // Genereer 50 tijdslots
+        TimeSlot::factory()->count(50)->create();
     }
 }
