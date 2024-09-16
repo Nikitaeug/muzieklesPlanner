@@ -8,23 +8,41 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css" />
 </head>
-    <body class="font-sans antialiased">
+<body class="font-sans antialiased"></body>
+    @auth
+        <div class="flex min-h-screen bg-gray-100">
+            @include('layouts.ingelogdnav')
+            <div class="flex-1">
+                <!-- Page Heading -->
+                @isset($header)
+                    <header class="bg-white shadow"></header>
+                        <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                            {{ $header }}
+                        </div>
+                    </header>
+                @endisset
+
+                <main class="p-4">
+                    {{ $slot }}
+                </main>
+            </div>
+        </div>
+    @else
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
-
             <!-- Page Heading -->
             @isset($header)
                 <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
                 </header>
             @endisset
 
-            
-            <main>
+            <main class="p-4">
                 {{ $slot }}
             </main>
         </div>
-    </body>
+    @endauth
+</body>
 </html>
