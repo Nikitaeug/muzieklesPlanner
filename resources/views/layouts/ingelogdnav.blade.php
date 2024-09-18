@@ -24,11 +24,6 @@
                     <span class="ml-2">Profile</span>
                 </a>
             </li>
-            <li class="mb-4">
-                <a href="/profile/settings" class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
-                    <i class="text-xl iconoir-settings"></i>
-                    <span class="ml-2">Settings</span>
-                </a>
             </li>
             <li>
                 <form method="POST" action="{{ route('logout') }}">
