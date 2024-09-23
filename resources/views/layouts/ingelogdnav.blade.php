@@ -1,9 +1,9 @@
 <body class="flex h-screen font-sans tracking-normal leading-normal bg-gray-100">
     <!-- Full-height sidebar -->
-    <nav class="p-4 w-64 h-screen bg-gradient-to-b from-purple-500 to-blue-500 shadow-lg">
+    <nav class="p-4 w-64 h-auto bg-gradient-to-b from-purple-500 to-blue-500 shadow-lg">
         <div class="flex items-center mb-6">
-            <i class="text-2xl text-white iconoir-home"></i>
-            <span class="ml-2 text-xl font-bold text-white">Brand</span>
+            <i class="text-2xl text-white iconoir-music-note"></i>
+            <span class="ml-2 text-xl font-bold text-white">Music Academy</span>
         </div>
         <ul>
             <li class="mb-4">

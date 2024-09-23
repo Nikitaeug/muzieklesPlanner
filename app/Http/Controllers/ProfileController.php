@@ -57,14 +57,4 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
-
-    /**
-     * Display the user's profile settings.
-     */
-    public function settings(Request $request): View
-    {
-        return view('profile.settings', [
-            'user' => $request->user(),
-        ]);
-    }
 }
