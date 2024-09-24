@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+    <style>
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
 
+        ::-webkit-scrollbar-thumb {
+            background: #2cb1da; 
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2fa1c4;
+        }
+    </style>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
