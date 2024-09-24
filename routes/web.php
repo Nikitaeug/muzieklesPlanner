@@ -3,25 +3,34 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TimeSlotController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 // Homepage route
 Route::get('/', function () {
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    }
     return view('homepage');
-})->name('homepage');
+})->name('homepage')->middleware('guest');
 
 // Dashboard (alleen toegankelijk voor geverifieerde gebruikers)
 Route::get('/dashboard', function () {
     return view('ingelogd.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// Help pagina
+Route::get('/help', function () {
+    return view('ingelogd.help');
+})->middleware(['auth', 'verified'])->name('help');
+
 // Contact en About pagina's
 Route::get('/contact', function () {
     return view('contact');
-})->name('contact');
+})->name('contact')->middleware('guest');
 
 Route::get('/about', function () {
     return view('about');
-})->name('about');
+})->name('about')->middleware('guest');
 
 // Profiel bewerkingen (alleen toegankelijk voor ingelogde gebruikers)
 Route::middleware('auth')->group(function () {
