@@ -32,6 +32,11 @@ Route::get('/about', function () {
     return view('about');
 })->name('about')->middleware('guest');
 
+Route::get('/lessons', function () {
+    return view('lessons');
+})->name('lessons')->middleware('guest');
+
+
 // Profiel bewerkingen (alleen toegankelijk voor ingelogde gebruikers)
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
