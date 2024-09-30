@@ -1,7 +1,6 @@
 <x-app-layout>
 
 <body class="font-sans tracking-normal leading-normal bg-gray-50">
-    <!-- Removed header -->
   
     <main class="flex flex-col justify-center items-center py-20">
         <h1 class="mb-4 text-5xl font-bold text-center text-gray-800">Contact Us</h1>
