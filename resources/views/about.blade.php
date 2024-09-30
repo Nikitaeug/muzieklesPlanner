@@ -15,13 +15,13 @@
         <div class="grid grid-cols-1 gap-10 md:grid-cols-3">
             <div class="p-6 bg-white rounded-lg shadow-2xl transition-transform transform hover:scale-105">
                 <i class="mb-4 text-4xl text-blue-500 iconoir-user"></i>
-                <h3 class="mb-2 text-xl font-semibold">Nikita Voronkin</h3>
+                <h3 class="mb-2 text-xl font-semibold">Nikita voorkin</h3>
                 <p class="text-gray-600">Medewerker</p>
             </div>
             <div class="p-6 bg-white rounded-lg shadow-2xl transition-transform transform hover:scale-105">
-                <i class="mb-4 text-4xl text-blue-500 iconoir-user"></i>
+                 <i class="mb-4 text-4xl text-blue-500 iconoir-user"></i>
                 <h3 class="mb-2 text-xl font-semibold">Etienne van 023</h3>
-                <p class="text-gray-600">Medewerker</p>
+                <p class="text-gray-600">Eigenaar</p>
             </div>
             <div class="p-6 bg-white rounded-lg shadow-2xl transition-transform transform hover:scale-105">
                 <i class="mb-4 text-4xl text-blue-500 iconoir-user"></i>
@@ -43,5 +43,5 @@
         </div>
     </footer>
   </body>
-</x-app-layout>
+</x-app-layout> 
 
