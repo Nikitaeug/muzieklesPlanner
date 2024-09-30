@@ -2,7 +2,7 @@
     <div class="overflow-y-auto flex-1 p-6">
         <h1 class="text-3xl font-bold">Help</h1>
     </div>
-    4<section class="px-4 py-16 mx-auto max-w-6xl">
+    <section class="px-4 py-16 mx-auto max-w-6xl">
         <div class="p-8 bg-white rounded-lg shadow-lg">
             <div class="mb-4">
                 <h2 class="text-2xl font-bold text-gray-800">Call Us</h2>
