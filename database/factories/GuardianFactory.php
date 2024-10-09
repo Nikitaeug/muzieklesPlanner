@@ -1,25 +1,19 @@
 <?php
-
 namespace Database\Factories;
 
+use App\Models\Guardian;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\guardian>
- */
 class GuardianFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    protected $model = Guardian::class;
+
+    public function definition()
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail,
-            'phone_number' => fake()->phoneNumber(),
+            'phone_number' => $this->faker->phoneNumber,
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

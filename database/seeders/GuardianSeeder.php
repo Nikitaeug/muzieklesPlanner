@@ -1,17 +1,21 @@
 <?php
-
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Guardian;
+use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class GuardianSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
-        Guardian::factory()->count(10)->create();
+        $guardians = User::where('role', 'guardian')->get();
+
+        foreach ($guardians as $guardian) {
+            Guardian::factory()->create([
+                'user_id' => $guardian->id,
+                'phone_number' => '098-765-4321', // Adjust as necessary
+            ]);
+        }
     }
 }

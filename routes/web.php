@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TimeSlotController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\UserController;
 
 // Homepage route
 Route::get('/', function () {
@@ -36,6 +37,10 @@ Route::get('/lessons', function () {
     return view('lessons');
 })->name('lessons')->middleware('guest');
 
+
+
+Route::get('/user/create', [UserController::class, 'create'])->name('users.create');
+Route::post('/user', [UserController::class, 'store'])->name('users.store');
 
 // Profiel bewerkingen (alleen toegankelijk voor ingelogde gebruikers)
 Route::middleware('auth')->group(function () {

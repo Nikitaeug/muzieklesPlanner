@@ -1,27 +1,26 @@
 <?php
-
 namespace Database\Factories;
 
+use App\Models\Teacher;
+use App\Models\User; // Import the User model
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Teacher>
- */
 class TeacherFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    protected $model = Teacher::class;
+
+    public function definition()
     {
+        // Create a user and associate with the teacher
+        $user = User::factory()->create(); // Create the user
+
         return [
-            'name' => fake()->name(), 
-            'email' => fake()->unique()->safeEmail(),
-            'phone_number' => fake()->optional()->phoneNumber(), 
-            'specialization' => fake()->word(),
-            'availability' => fake()->randomElement(['{"monday": "9-5"}', '{"tuesday": "10-4"}']),
+            'user_id' => $user->id, // Assign the user ID to the teacher
+            'phone_number' => $this->faker->phoneNumber,
+            'specialization' => $this->faker->word, // Adjust this if necessary
+            'availability' => $this->faker->randomElement(['available', 'unavailable']),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
