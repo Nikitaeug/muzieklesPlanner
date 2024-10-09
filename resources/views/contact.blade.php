@@ -1,6 +1,5 @@
 <x-app-layout>
-
-<body class="font-sans tracking-normal leading-normal bg-gray-50">
+<div class="font-sans tracking-normal leading-normal bg-gray-50">
   
     <main class="flex flex-col justify-center items-center py-20">
         <h1 class="mb-4 text-5xl font-bold text-center text-gray-800">Contact Us</h1>
@@ -8,7 +7,7 @@
     </main>
   
     <section class="px-4 py-16 mx-auto max-w-6xl">
-        <div class="p-8 bg-white rounded-lg shadow-lg">
+        <div class="flex flex-row justify-evenly p-8 bg-white rounded-full border-r-4 border-l-4 border-purple-500 shadow-2xl">
             <div class="mb-4">
                 <h2 class="text-2xl font-bold text-gray-800">Call Us</h2>
                 <p class="text-lg text-gray-700">You can reach us at:</p>
@@ -25,7 +24,7 @@
     <footer class="mt-16 bg-white shadow-lg">
         <div class="px-4 py-6 mx-auto max-w-6xl">
             <div class="flex justify-between items-center">
-                <span class="text-gray-600">© 2023 Music Academy. All rights reserved.</span>
+                <span class="text-gray-600">© 2024 Music Academy. All rights reserved.</span>
                 <div class="flex space-x-4">
                     <a href="#" class="text-gray-600 transition duration-300 hover:text-gray-900">Privacy Policy</a>
                     <a href="#" class="text-gray-600 transition duration-300 hover:text-gray-900">Terms of Service</a>
@@ -33,5 +32,5 @@
             </div>
         </div>
     </footer>
-  </body>
+  </div>
 </x-app-layout>
