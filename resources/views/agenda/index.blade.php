@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <x-layout>
+=======
+<x-app-layout>
+>>>>>>> 2eb60d8debb2150237f6b2e7dce449a75034d710
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Agenda Overzicht
@@ -14,7 +18,11 @@
                         <div id="agenda"></div> <!-- HTML-element voor de agenda -->
                         <a href="{{ route('agenda.create') }}" class="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded">
                             Nieuw Tijdslot Toevoegen
+<<<<<<< HEAD
                         </a>
+=======
+                        </a>                        
+>>>>>>> 2eb60d8debb2150237f6b2e7dce449a75034d710
                     </div>
                 </div>
             </div>
@@ -24,4 +32,8 @@
     @push('scripts')
         <script src="{{ asset('js/agenda.js') }}"></script>
     @endpush
+<<<<<<< HEAD
 </x-layout>
+=======
+</x-app-layout>
+>>>>>>> 2eb60d8debb2150237f6b2e7dce449a75034d710

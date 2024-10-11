@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <x-layout>
+=======
+<x-app-layout>
+>>>>>>> 2eb60d8debb2150237f6b2e7dce449a75034d710
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Voeg een beschikbaar tijdslot toe
@@ -15,7 +19,11 @@
                         </div>
                     @endif
 
+<<<<<<< HEAD
                     <form action="{{ route('timeslots.store') }}" method="POST">
+=======
+                    <form action="{{ route('agenda.store') }}" method="POST">
+>>>>>>> 2eb60d8debb2150237f6b2e7dce449a75034d710
                         @csrf
                         <div class="mb-3">
                             <label for="date" class="form-label">Datum</label>
@@ -38,4 +46,8 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 </x-layout>
+=======
+</x-app-layout>
+>>>>>>> 2eb60d8debb2150237f6b2e7dce449a75034d710

@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 <x-layout>
+=======
+<x-app-layout>
+>>>>>>> 2eb60d8debb2150237f6b2e7dce449a75034d710
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Nieuw Tijdslot Toevoegen aan Agenda
         </h2>
     </x-slot>
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 2eb60d8debb2150237f6b2e7dce449a75034d710
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -31,4 +39,8 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 </x-layout>
+=======
+</x-app-layout>
+>>>>>>> 2eb60d8debb2150237f6b2e7dce449a75034d710
