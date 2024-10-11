@@ -15,11 +15,8 @@ class FeedbackFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition()
     {
-        return [
-            'content' => fake()->paragraph(),
-            'teacher_id' => Teacher::inRandomOrder()->first()->id,
-        ];
+    
     }
 }
