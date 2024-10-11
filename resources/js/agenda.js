@@ -1,5 +1,4 @@
 // public/js/agenda.js
-
 document.addEventListener('DOMContentLoaded', function() {
     $('#agenda').fullCalendar({
         header: {
@@ -8,6 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
             right: 'month,agendaWeek,agendaDay'
         },
         editable: true,
-        events: '/api/timeslots' // Stel hier je route in voor het ophalen van tijdslots
+        events: '/api/timeslots', // Route to fetch events
+        eventClick: function(info) {
+            alert('Lesson: ' + info.event.title);
+        }
     });
 });
