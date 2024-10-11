@@ -8,7 +8,10 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
-        
+        // Create an admin user
+        User::factory()->admin()->create([
+            'email' => 'admin@example.com',
+        ]);
     }
 }
 
