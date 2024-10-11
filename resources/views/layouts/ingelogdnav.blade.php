@@ -1,4 +1,4 @@
-<body class="flex h-screen font-sans tracking-normal leading-normal bg-gray-100">
+<div class="flex h-auto font-sans tracking-normal leading-normal bg-gray-100">
     <!-- Full-height sidebar -->
     <nav class="flex sticky top-0 flex-col p-4 w-64 h-screen bg-gradient-to-b from-purple-500 to-blue-500 shadow-lg">
         <div class="flex items-center mb-6">
@@ -42,4 +42,4 @@
             </a>
         </div>
     </nav>
-</body>
+</div>
