@@ -21,8 +21,7 @@ class DatabaseSeeder extends Seeder
             StudentSeeder::class,
             MusicLessonSeeder::class,
             TimeSlotSeeder::class,
-            FeedbackSeeder::class,
-            
+            FeedbackSeeder::class, 
         ]);
     }
 }
