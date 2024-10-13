@@ -1,25 +1,31 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create New Music Lesson') }}
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">
+            Nieuw Tijdslot Toevoegen aan Agenda
         </h2>
     </x-slot>
-
+    
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
+                    @if (session('error'))
+                        <div class="p-4 mb-4 text-white bg-red-500 rounded-md alert alert-error">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
                     @if ($errors->any())
-                        <div class="mb-4">
+                        <div class="p-4 mb-4 text-white bg-red-500 rounded-md alert alert-error">
                             <ul>
                                 @foreach ($errors->all() as $error)
-                                    <li class="text-red-500">{{ $error }}</li>
+                                    <li>{{ $error }}</li>
                                 @endforeach
                             </ul>
                         </div>
                     @endif
 
-                    <form action="{{ route('agenda.store') }}" method="POST">
+                    <form action="{{ route('timeslots.store') }}" method="POST">
                         @csrf
 
                         <div>
@@ -75,6 +81,9 @@
                                 Create Lesson
                             </button>
                         </div>
+                        <button type="submit" class="px-4 py-2 mt-4 text-white bg-blue-500 rounded">
+                            Tijdslot Toevoegen
+                        </button>
                     </form>
                 </div>
             </div>
