@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\MusicLessonController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TimeSlotController;
 use Illuminate\Support\Facades\Route;
@@ -47,9 +49,12 @@ Route::middleware('auth')->group(function () {
 // Agenda routes
 Route::middleware('auth')->group(function () {
     // Agenda overzicht en tijdslots aanmaken
-    Route::get('/agenda', [TimeSlotController::class, 'showAgenda'])->name('agenda');
-    Route::get('/agenda/create', [TimeSlotController::class, 'create'])->name('agenda.create');
-    Route::post('/agenda/store', [TimeSlotController::class, 'store'])->name('agenda.store');
+    Route::get('/agenda', [AgendaController::class, 'showAgenda'])->name('agenda.index');
+    Route::get('/agenda/create', [AgendaController::class, 'create'])->name('agenda.create');
+    Route::post('/agenda/store', [AgendaController::class, 'store'])->name('agenda.store');
 });
+
+
+Route::get('/api/timeslots', [MusicLessonController::class, 'getLessons']);
 
 require __DIR__.'/auth.php';
