@@ -1,17 +1,14 @@
 <?php
-
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Teacher;
+use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class TeacherSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
-        Teacher::factory()->count(10)->create();
+        
     }
 }

@@ -14,14 +14,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(10)->create();
         $this->call([
+            UserSeeder::class,
             GuardianSeeder::class,
             TeacherSeeder::class,
             StudentSeeder::class,
             MusicLessonSeeder::class,
             TimeSlotSeeder::class,
-            FeedbackSeeder::class,
+            FeedbackSeeder::class, 
         ]);
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\musicLesson;
 use Illuminate\Http\Request;
 
-class MusicLessonController extends Controller
+class UserController extends Controller
 {
     // Method to get lessons as JSON for the FullCalendar
     public function getLessons()

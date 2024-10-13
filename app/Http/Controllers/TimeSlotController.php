@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\TimeSlot;
 use Illuminate\Http\Request;
+use App\Helpers\Notification;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\TimeSlotRequest;
 
 class TimeSlotController extends Controller
 {
@@ -25,29 +27,24 @@ class TimeSlotController extends Controller
     public function create()
     {
         return view('agenda.timeslots'); // Verwijst naar agenda/timeslots.blade.php
+        
     }
 
 
-    public function store(Request $request)
-    {
-        // Valideer de inkomende aanvraag
-        $request->validate([
-            'date' => 'required|date',
-            'start_time' => 'required',
-            'end_time' => 'required|after:start_time',
-        ]);
+    public function store(TimeSlotRequest $request)
+{
+    $validatedData = $request->validated();
 
-        // Maak een nieuw tijdslot aan
-        TimeSlot::create([
-            'teacher_id' => Auth::id(), // De ingelogde leraar
-            'date' => $request->date,
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
-        ]);
+    TimeSlot::create(array_merge($validatedData, [
+        'teacher_id' => Auth::id(),
+    ]));
 
-        return redirect()->route('agenda')->with('success', 'Tijdslot succesvol toegevoegd!');
-    }
+    session()->flash('success', 'Tijdslot succesvol toegevoegd!');
+    return redirect()->route('agenda');
+}
 
+
+    
     /**
      * Verkrijg tijdslots voor de agenda in JSON-formaat (voor bijvoorbeeld een kalender).
      */

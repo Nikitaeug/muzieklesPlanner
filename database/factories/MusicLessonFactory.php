@@ -16,16 +16,8 @@ class MusicLessonFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition()
     {
-        return [
-            'teacher_id' => Teacher::inRandomOrder()->first()->id,
-            'student_id' => Student::inRandomOrder()->first()->id,
-            'date' => fake()->date(),
-            'start_time' => fake()->time(),
-            'end_time' => fake()->time(),
-            'status' => fake()->randomElement(['pending', 'completed']),
-            'is_proefles' => fake()->boolean(),
-        ];
+ 
     }
 }
