@@ -15,11 +15,6 @@
         <div class="w-1/2"> <!-- Added this div for right content -->
             <h2 class="mb-8 text-4xl font-bold text-center text-gray-800">Meet the Team</h2>
             <div class="grid grid-cols-1 gap-10">
-                <div class="p-6 bg-gradient-to-r from-purple-600 to-blue-500 rounded-lg shadow-2xl transition-transform transform hover:scale-105"> <!-- Lighter color -->
-                    <i class="mb-4 text-4xl text-white iconoir-user"></i>
-                    <h3 class="mb-2 text-xl font-semibold text-white">Nikita Voronkin</h3>
-                    <p class="text-white">Eigenaar</p>
-                </div>
                 <div class="p-6 bg-gradient-to-r from-purple-700 to-blue-500 rounded-lg shadow-2xl transition-transform transform hover:scale-105"> <!-- Normal color -->
                     <i class="mb-4 text-4xl text-white iconoir-user"></i>
                     <h3 class="mb-2 text-xl font-semibold text-white">Etienne van 023</h3>
