@@ -13,6 +13,7 @@ class musicLesson extends Model
     'teacher_id',
     'student_id',
     'date',
+    'comments',
     'start_time',
     'end_time',
     'status',

@@ -23,6 +23,7 @@
         }
     </style>
 </head>
+@stack('scripts')
 <body>
     @include('components.notification')
         @auth
@@ -36,7 +37,6 @@
                             </div>
                         </header>
                     @endisset
-
                     <main class="p-4">
                         {{ $slot }}
                     </main>

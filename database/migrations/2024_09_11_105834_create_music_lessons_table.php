@@ -11,13 +11,14 @@ class CreateMusicLessonsTable extends Migration
     {
         Schema::create('music_lessons', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('teacher_id')->constrained('teachers')->onDelete('cascade'); // Leraar
-            $table->foreignId('student_id')->constrained('students')->onDelete('cascade'); // Student
-            $table->date('date'); // Datum van de les
-            $table->time('start_time'); // Starttijd van de les
-            $table->time('end_time'); // Eindtijd van de les
-            $table->string('status')->default('pending'); // Status van de les, bijv. 'completed' of 'pending'
-            $table->boolean('is_proefles')->default(false); // Geeft aan of het een proefles is
+            $table->foreignId('teacher_id')->constrained('teachers')->onDelete('cascade');
+            $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
+            $table->date('date');
+            $table->string('comments')->nullable(); 
+            $table->time('start_time');
+            $table->time('end_time'); 
+            $table->string('status')->default('pending');
+            $table->boolean('is_proefles')->default(false); 
             $table->timestamps();
         });
     }

@@ -8,25 +8,23 @@ use Illuminate\Http\Request;
 
 class AgendaController extends Controller
 {
-    // Method to show the agenda (list of music lessons)
-    public function showAgenda()
+    public function index()
     {
-        // Fetch all lessons to display
-        $lessons = musicLesson::with(['teacher', 'student'])->get();
-    
-        // Transform lessons into the events format for FullCalendar
-        $events = $lessons->map(function($lesson) {
-            return [
-                'title' => $lesson->student->name, // Assuming you want to display the student's name
-                'start' => $lesson->date . 'T' . $lesson->start_time, // Combine date and start_time for FullCalendar
-                'end' => $lesson->date . 'T' . $lesson->end_time,
-                'status' => $lesson->status,
-                'is_proefles' => $lesson->is_proefles,
+        $events = [];
+ 
+        $musicLessons = musicLesson::with(['student', 'teacher'])->get();
+ 
+        foreach ($musicLessons as $lesson) {
+            $events[] = [
+                'title' => $lesson->student->name . ' ('.$lesson->teacher->name.')',
+                'start' => $lesson->date . ' ' . $lesson->start_time,
+                'end' => $lesson->date . ' ' . $lesson->end_time,
             ];
-        });
-    
-        return view('agenda.index', compact('events')); // Pass events to the view
+        }
+ 
+        return view('agenda.index', compact('events'));
     }
+
 
     // Method to show the form for creating a new lesson
     public function create()

@@ -54,12 +54,10 @@ Route::middleware('auth')->group(function () {
 // Agenda routes
 Route::middleware('auth')->group(function () {
     // Agenda overzicht en tijdslots aanmaken
-    Route::get('/agenda', [AgendaController::class, 'showAgenda'])->name('agenda.index');
+    Route::get('/agenda', [AgendaController::class, 'index'])->name('agenda.index');
     Route::get('/agenda/create', [AgendaController::class, 'create'])->name('agenda.create');
     Route::post('/agenda/store', [AgendaController::class, 'store'])->name('agenda.store');
 });
 
-
-Route::get('/api/timeslots', [MusicLessonController::class, 'getLessons']);
 
 require __DIR__.'/auth.php';
