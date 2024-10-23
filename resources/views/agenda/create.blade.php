@@ -62,17 +62,17 @@
 
                         <div class="mt-4">
                             <label for="date">Date</label>
-                            <input type="date" name="date" id="date" class="block mt-1 w-full" value="{{ old('date', $start ? \Carbon\Carbon::parse($start)->format('Y-m-d') : '') }}">
+                            <input type="date" name="date" id="date" class="block mt-1 w-full" value="{{ old('date') }}">
                         </div>
-                        
+
                         <div class="mt-4">
                             <label for="start_time">Start Time</label>
-                            <input type="time" name="start_time" id="start_time" class="block mt-1 w-full" value="{{ old('start_time', $start ? \Carbon\Carbon::parse($start)->format('H:i') : '') }}">
+                            <input type="time" name="start_time" id="start_time" class="block mt-1 w-full" value="{{ old('start_time') }}">
                         </div>
-                        
+
                         <div class="mt-4">
                             <label for="end_time">End Time</label>
-                            <input type="time" name="end_time" id="end_time" class="block mt-1 w-full" value="{{ old('end_time', $end ? \Carbon\Carbon::parse($end)->format('H:i') : '') }}">
+                            <input type="time" name="end_time" id="end_time" class="block mt-1 w-full" value="{{ old('end_time') }}">
                         </div>
 
                         <div class="mt-4">
