@@ -13,6 +13,7 @@ class CreateMusicLessonsTable extends Migration
             $table->id();
             $table->foreignId('teacher_id')->constrained('teachers')->onDelete('cascade');
             $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
+            $table->string('title');
             $table->date('date');
             $table->string('comments')->nullable(); 
             $table->time('start_time');

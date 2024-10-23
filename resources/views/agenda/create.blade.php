@@ -25,47 +25,59 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('timeslots.store') }}" method="POST">
+                    <form action="{{ route('musiclessons.store') }}" method="POST">
                         @csrf
 
-                        <div>
+                        
+                        <div class="mt-4">
+                            <label for="title">Title</label>
+                            <input type="text" name="title" id="title" class="block mt-1 w-full" value="{{ old('title') }}">
+                        </div>
+
+                        <div class="mt-4">
                             <label for="teacher_id">Teacher</label>
                             <select name="teacher_id" id="teacher_id" class="block mt-1 w-full">
                                 <option value="">Select a Teacher</option>
                                 @foreach ($teachers as $teacher)
-                                    <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
+                                    <option value="{{ $teacher->id }}">
+                                        {{ $teacher->user->name }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
+                        
 
                         <div class="mt-4">
                             <label for="student_id">Student</label>
                             <select name="student_id" id="student_id" class="block mt-1 w-full">
                                 <option value="">Select a Student</option>
                                 @foreach ($students as $student)
-                                    <option value="{{ $student->id }}">{{ $student->name }}</option>
+                                    <option value="{{ $student->id }}">
+                                        {{ $student->user->name }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
+                        
 
                         <div class="mt-4">
                             <label for="date">Date</label>
-                            <input type="date" name="date" id="date" class="block mt-1 w-full" value="{{ old('date') }}">
+                            <input type="date" name="date" id="date" class="block mt-1 w-full" value="{{ old('date', $start ? \Carbon\Carbon::parse($start)->format('Y-m-d') : '') }}">
                         </div>
-
+                        
                         <div class="mt-4">
                             <label for="start_time">Start Time</label>
-                            <input type="time" name="start_time" id="start_time" class="block mt-1 w-full" value="{{ old('start_time') }}">
+                            <input type="time" name="start_time" id="start_time" class="block mt-1 w-full" value="{{ old('start_time', $start ? \Carbon\Carbon::parse($start)->format('H:i') : '') }}">
                         </div>
-
+                        
                         <div class="mt-4">
                             <label for="end_time">End Time</label>
-                            <input type="time" name="end_time" id="end_time" class="block mt-1 w-full" value="{{ old('end_time') }}">
+                            <input type="time" name="end_time" id="end_time" class="block mt-1 w-full" value="{{ old('end_time', $end ? \Carbon\Carbon::parse($end)->format('H:i') : '') }}">
                         </div>
 
                         <div class="mt-4">
-                            <label for="status">Status</label>
-                            <input type="text" name="status" id="status" class="block mt-1 w-full" value="{{ old('status') }}">
+                            <label for="comment">Comment</label>
+                            <input type="text" name="comment" id="comment" class="block mt-1 w-full" value="{{ old('comment') }}">
                         </div>
 
                         <div class="mt-4">
@@ -81,9 +93,6 @@
                                 Create Lesson
                             </button>
                         </div>
-                        <button type="submit" class="px-4 py-2 mt-4 text-white bg-blue-500 rounded">
-                            Tijdslot Toevoegen
-                        </button>
                     </form>
                 </div>
             </div>

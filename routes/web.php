@@ -61,3 +61,7 @@ Route::middleware('auth')->group(function () {
 
 
 require __DIR__.'/auth.php';
+
+Route::post('/musiclessons', [MusicLessonController::class, 'store'])->name('musiclessons.store');
+
+Route::patch('/musiclessons/update', [MusicLessonController::class, 'update'])->name('musiclessons.update');
