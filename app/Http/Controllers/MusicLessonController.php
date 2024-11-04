@@ -57,6 +57,7 @@ public function getLessons()
         $lesson->date = $request->input('date');
         $lesson->start_time = $request->input('start_time');
         $lesson->end_time = $request->input('end_time');
+        $lesson->comments = $request->input('comments');
         $lesson->save(); // Opslaan in de database
     
         return redirect()->route('agenda.index');
@@ -91,6 +92,16 @@ public function getLessons()
     
 
         return redirect()->route('agenda.index');
+    }
+
+    public function create(Request $request)
+    {
+        // Retrieve the start and end times from query parameters
+        $start = $request->query('start');
+        $end = $request->query('end');
+
+        // Pass them to the view
+        return view('agenda.create', compact('start', 'end'));
     }
     
     

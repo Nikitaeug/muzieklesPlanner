@@ -27,11 +27,16 @@
         <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.css" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.css" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid/main.css" rel="stylesheet" />
-        <script> 
-                document.addEventListener('DOMContentLoaded', function () {
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
                 var calendarEl = document.getElementById('calendar');
                 var calendar = new FullCalendar.Calendar(calendarEl, {
                     initialView: 'timeGridWeek',
+                    headerToolbar: {
+                        left: '',
+                        center: 'title',
+                        right: 'prev,next today dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+                    },
                     slotMinTime: '08:00:00',
                     slotMaxTime: '19:00:00',
                     events: @json($events),
@@ -39,13 +44,18 @@
                     selectMirror: true,
                     
                     select: function(info) {
-                    // Construct the URL with the necessary parameters
-                    const createUrl = `{{ route('agenda.create') }}?start=${info.start.toISOString()}&end=${info.end.toISOString()}`;
-
-                    // Redirect to the lesson creation page
-                    window.location.href = createUrl;
-
-                    calendar.unselect(); // Unselect the time slot
+                        // Extract date and times in the correct format for the form
+                        const selectedDate = info.startStr.split('T')[0]; // 'YYYY-MM-DD'
+                        const startTime = info.startStr.split('T')[1].slice(0, 5); // 'HH:MM'
+                        const endTime = info.endStr ? info.endStr.split('T')[1].slice(0, 5) : ''; // 'HH:MM' or empty if no end
+            
+                        // Construct the URL with the selected date, start time, and end time
+                        const createUrl = `{{ route('agenda.create') }}?date=${selectedDate}&start_time=${startTime}&end_time=${endTime}`;
+            
+                        // Redirect to the create page with pre-filled date and time
+                        window.location.href = createUrl;
+            
+                        calendar.unselect(); // Unselect the time slot
                     },
                     
                     // Event click functionality to show more details
@@ -59,7 +69,7 @@
                         let isProefles = event.extendedProps.is_proefles ? 'Yes' : 'No';
                         let start = event.start.toLocaleString();
                         let end = event.end ? event.end.toLocaleString() : 'No end time';
-
+            
                         // Show an alert with the event details
                         alert(`Lesson Details:\n\nTitle: ${title}\nTeacher: ${teacher}\nStart: ${start}\nEnd: ${end}\nProefles: ${isProefles}\nComment: ${comment}`);
                     },
@@ -75,7 +85,7 @@
                     }
                 });
                 calendar.render();
-
+            
                 // Function to update an event after resizing or dragging
                 function updateEvent(event) {
                     $.ajax({
@@ -99,8 +109,8 @@
                     });
                 }
             });
-
-        </script>
+            </script>
+            
     @endpush
 
                 </div>
