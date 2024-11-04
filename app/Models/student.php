@@ -22,15 +22,9 @@ class student extends Model
         return $this->belongsTo(Guardian::class);
     } 
 
-    public function teacher()
-    {
-        return $this->belongsTo(Teacher::class);
-    }
-
     protected $fillable = [
         'user_id',
         'guardian_id',
-        'teacher_id',
     ];
 
     

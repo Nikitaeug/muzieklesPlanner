@@ -13,7 +13,6 @@ class CreateStudentsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Koppeling met de gebruiker
             $table->foreignId('guardian_id')->nullable()->constrained('guardians')->onDelete('cascade'); // Koppeling met de voogd
-            $table->foreignId('teacher_id')->nullable()->constrained('teachers')->onDelete('cascade'); // Koppeling met een leraar
             $table->timestamps();
         });
     }
