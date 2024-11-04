@@ -23,7 +23,7 @@
         
             @if (auth()->user()->role == 'admin')
                 <li class="mb-4">
-                    <a href="/assign-teachers"
+                    <a href="{{ route('assign-teachers.index') }}"
                         class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
                         <i class="text-xl iconoir-user-plus"></i>
                         <span class="ml-2">Assign Teachers</span>

@@ -7,6 +7,8 @@ use App\Http\Controllers\TimeSlotController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AssignTeachersController;
+use App\Http\Controllers\AssignTeacherController;
 
 // Homepage route
 Route::get('/', function () {
@@ -65,3 +67,7 @@ require __DIR__.'/auth.php';
 Route::post('/musiclessons', [MusicLessonController::class, 'store'])->name('musiclessons.store');
 
 Route::patch('/musiclessons/update', [MusicLessonController::class, 'update'])->name('musiclessons.update');
+
+Route::get('/assign-teachers', [AssignTeachersController::class, 'index'])->name('assign-teachers.index');
+Route::post('/assign-teachers/{user}', [AssignTeachersController::class, 'assign'])->name('assign-teachers.assign');
+
