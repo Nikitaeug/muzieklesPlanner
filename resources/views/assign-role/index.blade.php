@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="container mx-auto px-4 py-8">
-        <h1 class="text-2xl font-bold mb-6">Assign Teachers</h1>
+        <h1 class="text-2xl font-bold mb-6">Assign Role</h1>
         
         <div class="bg-white shadow-md rounded-lg overflow-hidden">
             <table class="min-w-full divide-y divide-gray-200">
@@ -19,12 +19,26 @@
                             <td class="px-6 py-4 whitespace-nowrap">{{ $user->email }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ $user->role }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <form action="{{ route('assign-teachers.assign', $user) }}" method="POST" class="inline">
-                                    @csrf
-                                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                        Assign as Teacher
-                                    </button>
-                                </form>
+                                <div class="flex space-x-2">
+                                    <form action="{{ route('assign-role.assign', ['user' => $user, 'role' => 'teacher']) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                            Assign as Teacher
+                                        </button>
+                                    </form>
+                                    <form action="{{ route('assign-role.assign', ['user' => $user, 'role' => 'guardian']) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                                            Assign as Guardian
+                                        </button>
+                                    </form>
+                                    <form action="{{ route('assign-role.assign', ['user' => $user, 'role' => 'admin']) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                                            Assign as Admin
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @empty
