@@ -9,7 +9,7 @@
                 </button>
             @elseif(auth()->user()->role === 'manager')
                 <button class="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
-                    <i class="fas fa-plus mr-2"></i> New Project
+                    <i class="fas fa-plus mr-2"></i> add lesson
                 </button>
             @endif
         </div>
@@ -76,8 +76,8 @@
                             <i class="fas fa-tasks text-2xl"></i>
                         </div>
                         <div class="ml-4">
-                            <p class="text-gray-500">My Tasks</p>
-                            <p class="text-2xl font-semibold">{{ $myTasks ?? 0 }}</p>
+                            <p class="text-gray-500">My lessons</p>
+                            <p class="text-2xl font-semibold">{{ $myLessons ?? 0 }}</p>
                         </div>
                     </div>
                 </div>
@@ -88,8 +88,8 @@
                             <i class="fas fa-check-circle text-2xl"></i>
                         </div>
                         <div class="ml-4">
-                            <p class="text-gray-500">Completed Tasks</p>
-                            <p class="text-2xl font-semibold">{{ $completedTasks ?? 0 }}</p>
+                            <p class="text-gray-500">Completed lessons</p>
+                            <p class="text-2xl font-semibold">{{ $completedLessons ?? 0 }}</p>
                         </div>
                     </div>
                 </div>
