@@ -15,7 +15,7 @@ class AssignRoleController extends Controller
 
     public function assign(User $user, Request $request)
     {
-        $validRoles = ['teacher', 'guardian', 'admin'];
+        $validRoles = ['teacher', 'guardian', 'admin','student'];
         $role = $request->route('role');
 
         if (!in_array($role, $validRoles)) {

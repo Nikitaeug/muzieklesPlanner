@@ -39,6 +39,12 @@
                                                 Assign as Admin
                                             </button>
                                         </form>
+                                        <form action="{{ route('assign-role.assign', ['user' => $user, 'role' => 'student']) }}" method="POST" class="inline">
+                                            @csrf
+                                            <button type="submit" class="w-full sm:w-auto bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+                                                Assign as student
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
