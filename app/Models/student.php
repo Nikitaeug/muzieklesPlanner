@@ -27,5 +27,8 @@ class student extends Model
         'guardian_id',
     ];
 
-    
+    public function musicLessons()
+    {
+        return $this->hasMany(MusicLesson::class);
+    }
 }

@@ -8,6 +8,8 @@ use App\Http\Controllers\TimeSlotController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
+require __DIR__.'/auth.php';
 
 // Homepage route
 Route::get('/', function () {
@@ -18,9 +20,9 @@ Route::get('/', function () {
 })->name('homepage')->middleware('guest');
 
 // Dashboard (alleen toegankelijk voor geverifieerde gebruikers)
-Route::get('/dashboard', function () {
-    return view('ingelogd.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 // Help pagina
 Route::get('/help', function () {
@@ -61,7 +63,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-require __DIR__.'/auth.php';
+
 
 // Route to display the form for creating a music lesson
 Route::get('/musiclessons/create', [MusicLessonController::class, 'create'])->name('musiclessons.create');
