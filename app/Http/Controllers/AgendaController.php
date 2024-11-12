@@ -26,20 +26,20 @@ class AgendaController extends Controller
     }
 
 
-    // Method to show the form for creating a new lesson
+
     public function create()
     {
-        // Fetch teachers and students for the form
+    
         $teachers = teacher::all();
         $students = student::all();
 
         return view('agenda.create', compact('teachers', 'students'));
     }
 
-    // Method to store a new lesson
+    
     public function store(Request $request)
     {
-        // Validate the input
+        
         $request->validate([
             'teacher_id' => 'required|exists:teachers,id',
             'student_id' => 'required|exists:students,id',
@@ -50,10 +50,10 @@ class AgendaController extends Controller
             'is_proefles' => 'required|boolean',
         ]);
 
-        // Save the lesson to the database
+     
         musicLesson::create($request->all());
 
-        // Redirect back to the agenda with a success message
+       
         return redirect()->route('agenda.index')->with('success', 'Music lesson created successfully!');
     }
 }

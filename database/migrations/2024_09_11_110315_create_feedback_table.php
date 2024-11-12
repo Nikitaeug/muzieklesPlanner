@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('feedback', function (Blueprint $table) {
             $table->id();
-            $table->text('content');
-            $table->foreignId('teacher_id')->constrained('teachers');
+            $table->foreignId('music_lessons_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->text('feedback');
             $table->timestamps();
         });
     }

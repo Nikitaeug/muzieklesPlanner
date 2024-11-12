@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
-require __DIR__.'/auth.php';
+use App\Http\Controllers\FeedbackController;
+
+require __DIR__ . '/auth.php';
 
 // Homepage route
 Route::get('/', function () {
@@ -19,17 +21,17 @@ Route::get('/', function () {
     return view('homepage');
 })->name('homepage')->middleware('guest');
 
-// Dashboard (alleen toegankelijk voor geverifieerde gebruikers)
+// Dashboard route
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-// Help pagina
+// Help page route
 Route::get('/help', function () {
     return view('ingelogd.help');
 })->middleware(['auth', 'verified'])->name('help');
 
-// Contact en About pagina's
+// Contact and About pages
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact')->middleware('guest');
@@ -38,44 +40,41 @@ Route::get('/about', function () {
     return view('about');
 })->name('about')->middleware('guest');
 
+// Lessons page route
 Route::get('/lessons', function () {
     return view('lessons');
 })->name('lessons')->middleware('guest');
 
-
-
+// User creation routes
 Route::get('/user/create', [UserController::class, 'create'])->name('users.create');
 Route::post('/user', [UserController::class, 'store'])->name('users.store');
 
-// Profiel bewerkingen (alleen toegankelijk voor ingelogde gebruikers)
+// Profile editing routes
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    });
 
-// Agenda routes
-Route::middleware('auth')->group(function () {
-    // Agenda overzicht en tijdslots aanmaken
+    // Agenda routes
     Route::get('/agenda', [AgendaController::class, 'index'])->name('agenda.index');
     Route::get('/agenda/create', [AgendaController::class, 'create'])->name('agenda.create');
     Route::post('/agenda/store', [AgendaController::class, 'store'])->name('agenda.store');
-});
 
+    // Music lessons routes
+    Route::get('/musiclessons/create', [MusicLessonController::class, 'create'])->name('musiclessons.create');
+    Route::post('/musiclessons', [MusicLessonController::class, 'store'])->name('musiclessons.store');
+    Route::patch('/musiclessons/update', [MusicLessonController::class, 'update'])->name('musiclessons.update');
 
-
-
-// Route to display the form for creating a music lesson
-Route::get('/musiclessons/create', [MusicLessonController::class, 'create'])->name('musiclessons.create');
-
-// Route to store the created music lesson
-Route::post('/musiclessons', [MusicLessonController::class, 'store'])->name('musiclessons.store');
-
-// Route to update an existing music lesson
-Route::patch('/musiclessons/update', [MusicLessonController::class, 'update'])->name('musiclessons.update');
-
-Route::middleware(['auth'])->group(function () {
+    // Role assignment routes
     Route::get('/assign-role', [AssignRoleController::class, 'index'])->name('assign-role.index');
     Route::post('/assign-role/{user}/{role}', [AssignRoleController::class, 'assign'])->name('assign-role.assign');
-});
 
+    // Admin user management routes
+    Route::get('/users/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::patch('/users/users/{id}', [UserController::class, 'update'])->name('users.update');
+
+    Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback.index');
+    Route::get('/feedback/create', [FeedbackController::class, 'create'])->name('feedback.create');
+    Route::post('/feedback/store', [FeedbackController::class, 'store'])->name('feedback.store');
+});

@@ -10,24 +10,19 @@ use App\Http\Requests\TimeSlotRequest;
 
 class TimeSlotController extends Controller
 {
-    /**
-     * Toon de agenda (overzicht van tijdslots).
-     */
+  
     public function showAgenda()
     {
-        // Haal alle tijdslots op voor de agenda. Je kunt filters toevoegen als dat nodig is.
+       
         $timeSlots = TimeSlot::where('teacher_id', Auth::id())->get();
 
         return view('agenda.index', compact('timeSlots'));
     }
 
-    /**
-     * Toon de vorm om een nieuw tijdslot toe te voegen.
-     */
+ 
     public function create()
     {
-        return view('agenda.timeslots'); // Verwijst naar agenda/timeslots.blade.php
-        
+        return view('agenda.timeslots');
     }
 
 
@@ -45,9 +40,7 @@ class TimeSlotController extends Controller
 
 
     
-    /**
-     * Verkrijg tijdslots voor de agenda in JSON-formaat (voor bijvoorbeeld een kalender).
-     */
+  
     public function getTimeSlots()
     {
         $timeSlots = TimeSlot::where('teacher_id', Auth::id())->where('is_booked', false)->get();

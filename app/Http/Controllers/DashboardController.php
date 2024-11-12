@@ -27,7 +27,7 @@ class DashboardController extends Controller
             case 'guardian':
                 $data = $this->getGuardianDashboardData($user);
                 break;
-            default: // student
+            default:
                 $data = $this->getStudentDashboardData($user);
                 break;
         }
@@ -144,7 +144,6 @@ class DashboardController extends Controller
             return [
                 'myLessons' => 0,
                 'completedLessons' => 0,
-                'tasks' => collect([])
             ];
         }
 

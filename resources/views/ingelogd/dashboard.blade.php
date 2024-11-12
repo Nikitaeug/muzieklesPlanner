@@ -4,9 +4,9 @@
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-3xl font-bold">Dashboard</h1>
             @if(auth()->user()->role === 'admin')
-                <button class="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
+                <a href="{{ route('users.index') }}" class="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
                     <i class="fas fa-users-cog mr-2"></i> Manage Users
-                </button>
+                </a>
             @elseif(auth()->user()->role === 'teacher')
                 <button class="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
                     <i class="fas fa-plus mr-2"></i> add lesson
@@ -204,21 +204,21 @@
                         </div>
 
                     @else
-                        <h2 class="text-xl font-semibold mb-4">My Tasks</h2>
+                        <h2 class="text-xl font-semibold mb-4">My lessons</h2>
                         <div class="space-y-4">
-                            @forelse($data['tasks'] ?? [] as $task)
+                            {{-- @forelse() --}}
                                 <div class="flex items-center border-b pb-4">
                                     <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
                                         <i class="fas fa-tasks text-gray-500"></i>
                                     </div>
                                     <div class="ml-4">
-                                        <p class="font-medium">{{ $task->title }}</p>
-                                        <p class="text-sm text-gray-500">Due: {{ $task->due_date->format('M d, Y') }}</p>
+                                        <p class="font-medium"></p>
+                                        <p class="text-sm text-gray-500"></p>
                                     </div>
                                 </div>
-                            @empty
+                            {{-- @empty --}}
                                 <p class="text-gray-500">No tasks assigned</p>
-                            @endforelse
+                            {{-- @endforelse --}}
                         </div>
                     @endif
                 </div>

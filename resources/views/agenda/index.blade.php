@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="agenda-container">
                         <h1>Agenda Overzicht</h1>
-                        <div id="agenda"></div> <!-- HTML-element voor de agenda -->
+                        <div id="agenda"></div> 
                             <a href="{{ route('agenda.create') }}" class="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded">
                                 Nieuw Tijdslot Toevoegen
                             </a>

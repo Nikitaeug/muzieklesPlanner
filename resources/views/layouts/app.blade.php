@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <style>
         body {
-            margin: 0; /* Ensure no default margin on the body */
+            margin: 0;
         }
         ::-webkit-scrollbar {
             width: 12px;
