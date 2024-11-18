@@ -19,12 +19,12 @@ class AgendaController extends Controller
                 'title' => $lesson->student->name . ' ('.$lesson->teacher->name.')',
                 'start' => $lesson->date . ' ' . $lesson->start_time,
                 'end' => $lesson->date . ' ' . $lesson->end_time,
+            
             ];
         }
  
         return view('agenda.index', compact('events'));
     }
-
 
 
     public function create()
