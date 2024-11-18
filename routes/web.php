@@ -64,7 +64,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 // Route to display the form for creating a music lesson
-Route::get('/musiclessons/create', [MusicLessonController::class, 'create'])->name('musiclessons.create');
+   Route::get('/musiclessons/create', [MusicLessonController::class, 'create'])->name('musiclessons.create');
 
 // Route to store the created music lesson
 Route::post('/musiclessons', [MusicLessonController::class, 'store'])->name('musiclessons.store');

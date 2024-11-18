@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Log;
 
 class MusicLessonController extends Controller
 {
+
+
+
 public function getLessons()
 {
     $lessons = MusicLesson::with(['teacher.user', 'student.user'])->get();
@@ -25,7 +28,7 @@ public function getLessons()
             'extendedProps' => [
                 'teacher' => $lesson->teacher->user->name ?? 'Unknown Teacher', 
                 'student' => $lesson->student->user->name ?? 'Unknown Student',
-                'comment' => $lesson->comment ?? 'No comment provided',
+                'comments' => $lesson->comment ?? 'No comment provided',
                 'is_proefles' => $lesson->is_proefles,
             ],
         ];
@@ -47,6 +50,7 @@ public function getLessons()
             'date' => 'required|date',
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i|after:start_time',
+            'comments' => 'string|max:255',
         ]);
     
         // Nieuw lesobject aanmaken
