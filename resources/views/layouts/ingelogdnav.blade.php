@@ -20,6 +20,14 @@
                     <span class="ml-2">Agenda</span>
                 </a>
             </li>
+
+            <li class="mb-4">
+                <a href="feedback"
+                    class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
+                    <i class="text-xl iconoir-calendar"></i>
+                    <span class="ml-2">all feedback</span>
+                </a>
+            </li>
         
             @if (auth()->user()->role == 'admin')
                 <li class="mb-4">
@@ -35,6 +43,15 @@
                         class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
                         <i class="text-xl iconoir-user-circle"></i>
                         <span class="ml-2">Manage Student Guardians</span>
+                    </a>
+                </li>
+
+                
+                <li class="mb-4">
+                    <a href="/feedback/create"
+                        class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
+                        <i class="text-xl iconoir-user-circle"></i>
+                        <span class="ml-2">add feedback</span>
                     </a>
                 </li>
             @endif
@@ -54,6 +71,14 @@
                         class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
                         <i class="text-xl iconoir-user-circle"></i>
                         <span class="ml-2">Manage Student Guardians</span>
+                    </a>
+                </li>
+
+                <li class="mb-4">
+                    <a href="/feedback/create"
+                        class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
+                        <i class="text-xl iconoir-user-circle"></i>
+                        <span class="ml-2">add feedback</span>
                     </a>
                 </li>
             @endif

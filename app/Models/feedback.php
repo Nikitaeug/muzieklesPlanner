@@ -10,7 +10,23 @@ class feedback extends Model
     use HasFactory;
 
     protected $fillable = [
-    'content',
-    'teacher_id',
+        'music_lessons_id',
+        'user_id',
+        'feedback',
     ];
+
+    public function lesson()
+    {
+        return $this->belongsTo(MusicLesson::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function musicLesson()
+{
+    return $this->belongsTo(MusicLesson::class, 'music_lessons_id');
+}
 }

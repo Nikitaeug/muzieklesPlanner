@@ -55,8 +55,8 @@ public function getLessons()
     
         // Nieuw lesobject aanmaken
         $lesson = new MusicLesson();
-        $lesson->teacher_id = $request->input('teacher_id'); // Voeg teacher_id toe
-        $lesson->student_id = $request->input('student_id'); // Voeg student_id toe
+        $lesson->teacher_id = $request->input('teacher_id'); 
+        $lesson->student_id = $request->input('student_id'); 
         $lesson->title = $request->input('title');
         $lesson->date = $request->input('date');
         $lesson->start_time = $request->input('start_time');
@@ -73,7 +73,7 @@ public function getLessons()
     {
         Log::info('Update method called', $request->all());
     
-        // Validatie
+     
         $request->validate([
             'teacher_id' => 'required|exists:teachers,id',
             'student_id' => 'required|exists:students,id',
@@ -84,15 +84,15 @@ public function getLessons()
             'end_time' => 'required|date_format:H:i|after:start_time',
         ]);
     
-        // Les ophalen en bijwerken
+      
         $lesson = MusicLesson::findOrFail($request->input('id'));
-        $lesson->teacher_id = $request->input('teacher_id'); // Voeg teacher_id toe
-        $lesson->student_id = $request->input('student_id'); // Voeg student_id toe
+        $lesson->teacher_id = $request->input('teacher_id'); 
+        $lesson->student_id = $request->input('student_id'); 
         $lesson->title = $request->input('title');
         $lesson->date = $request->input('date');
         $lesson->start_time = $request->input('start_time');
         $lesson->end_time = $request->input('end_time');
-        $lesson->save(); // Opslaan in de database
+        $lesson->save(); 
     
 
         return redirect()->route('agenda.index');
@@ -100,11 +100,11 @@ public function getLessons()
 
     public function create(Request $request)
     {
-        // Retrieve the start and end times from query parameters
+    
         $start = $request->query('start');
         $end = $request->query('end');
 
-        // Pass them to the view
+     
         return view('agenda.create', compact('start', 'end'));
     }
     
