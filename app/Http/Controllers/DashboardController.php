@@ -44,7 +44,7 @@ class DashboardController extends Controller
         $lessonsGiven = MusicLesson::where('date', '<', Carbon::now())
             ->count();
 
-        $recentLessons = MusicLesson::with(['student.user', 'teacher.user'])
+        $recentLessons = MusicLesson::with(['student', 'teacher'])
             ->orderBy('created_at', 'desc')
             ->take(5)
             ->get()
