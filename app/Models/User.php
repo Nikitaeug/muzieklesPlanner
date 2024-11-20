@@ -22,9 +22,9 @@ class User extends Authenticatable
         return $this->hasOne(Teacher::class);
     }
 
-    public function lessons() {
-        return $this->hasMany(MusicLesson::class, 'teacher_id');
-    }
+    // public function lessons() {
+    //     return $this->hasMany(MusicLesson::class, 'teacher_id');
+    // }
 
     public function guardian()
     {

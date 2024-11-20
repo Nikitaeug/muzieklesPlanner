@@ -2,8 +2,7 @@
 <div class="container mx-auto p-6">
     @if(auth()->user()->role === 'admin')
     <h1 class="text-3xl font-bold mb-4 text-center">all Feedback</h1>
-    @endif
-    @if(auth()->user()->role === 'teacher' ||  (auth()->user()->role === 'student'))
+    @else
     <h1 class="text-3xl font-bold mb-4 text-center">Your Feedback</h1>
     @endif
     @if($feedbacks->isEmpty())
@@ -11,11 +10,10 @@
     @else
         <ul class="space-y-4">
             @foreach($feedbacks as $feedback)
-                <li class="p-4 border rounded-lg shadow-md bg-white">
-                    @if(auth()->user()->role === 'admin')
-                    <strong class="text-lg">{{ $feedback->musicLesson->teacher->user->name }}</strong><br>
-                    @endif
+                          <li class="p-4 border rounded-lg shadow-md bg-white">
                     <strong class="text-lg">{{ $feedback->musicLesson->title }}</strong><br>
+                    <strong>teacher:</strong> <span class="text-gray-700">{{ $feedback->user->name }}</span><br>
+                    <strong>student:</strong> <span class="text-gray-700">{{ $feedback->musicLesson->student->user->name }}</span><br>
                     <strong>Feedback:</strong> <span class="text-gray-700">{{ $feedback->feedback }}</span>
                 </li>
             @endforeach
