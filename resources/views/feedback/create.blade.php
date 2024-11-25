@@ -10,8 +10,8 @@
                         @foreach($lessons as $lesson)
                             <option value="{{ $lesson->id }}">{{ $lesson->title }}</option>
                         @endforeach
-                    @elseif(auth()->user()->role === 'teacher')
-                        @foreach(auth()->user()->lessons as $lesson)
+                        @elseif(auth()->user()->role === 'teacher')
+                        @foreach(auth()->user()->teacher->lessons as $lesson)
                             <option value="{{ $lesson->id }}">{{ $lesson->title }}</option>
                         @endforeach
                     @endif

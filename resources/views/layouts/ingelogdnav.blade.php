@@ -22,7 +22,7 @@
             </li>
 
             <li class="mb-4">
-                <a href="feedback"
+                <a href="{{ route('feedback.index') }}"
                     class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
                     <i class="text-xl iconoir-calendar"></i>
                     <span class="ml-2">all feedback</span>
