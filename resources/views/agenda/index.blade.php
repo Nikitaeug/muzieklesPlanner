@@ -11,11 +11,13 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="agenda-container">
                         <h1>Agenda Overzicht</h1>
-                        <div id="agenda"></div> 
+                        <div id="agenda"></div>
+                        @if(Auth::check() && (Auth::user()->role === 'admin' || Auth::user()->role === 'teacher'))
                             <a href="{{ route('agenda.create') }}" class="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded">
                                 Nieuw Tijdslot Toevoegen
                             </a>
-                    </div>
+                        @endif
+                        
 
                         <div id="calendar">
 
@@ -29,6 +31,9 @@
         <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid/main.css" rel="stylesheet" />
         <script>
             document.addEventListener('DOMContentLoaded', function () {
+                // Pass a boolean indicating if the user has permission (admin or teacher)
+                var hasCreatePermission = {{ Auth::check() && (Auth::user()->role === 'admin' || Auth::user()->role === 'teacher') ? 'true' : 'false' }};
+        
                 var calendarEl = document.getElementById('calendar');
                 var calendar = new FullCalendar.Calendar(calendarEl, {
                     initialView: 'timeGridWeek',
@@ -44,17 +49,23 @@
                     selectMirror: true,
                     
                     select: function(info) {
+                        // Check if the user has permission to create a timeslot
+                        if (!hasCreatePermission) {
+                            alert('Je hebt geen toestemming om een tijdslot te selecteren.');
+                            return; // Exit if the user does not have permission
+                        }
+        
                         // Extract date and times in the correct format for the form
                         const selectedDate = info.startStr.split('T')[0]; // 'YYYY-MM-DD'
                         const startTime = info.startStr.split('T')[1].slice(0, 5); // 'HH:MM'
                         const endTime = info.endStr ? info.endStr.split('T')[1].slice(0, 5) : ''; // 'HH:MM' or empty if no end
-            
+        
                         // Construct the URL with the selected date, start time, and end time
                         const createUrl = `{{ route('agenda.create') }}?date=${selectedDate}&start_time=${startTime}&end_time=${endTime}`;
-            
+        
                         // Redirect to the create page with pre-filled date and time
                         window.location.href = createUrl;
-            
+        
                         calendar.unselect(); // Unselect the time slot
                     },
                     
@@ -69,7 +80,7 @@
                         let isProefles = event.extendedProps.is_proefles ? 'Yes' : 'No';
                         let start = event.start.toLocaleString();
                         let end = event.end ? event.end.toLocaleString() : 'No end time';
-            
+        
                         // Show an alert with the event details
                         alert(`Lesson Details:\n\nTitle: ${title}\nTeacher: ${teacher}\nStart: ${start}\nEnd: ${end}\nProefles: ${isProefles}\nComment: ${comment}`);
                     },
@@ -109,10 +120,11 @@
                     });
                 }
             });
-            </script>
+        
+            
+        </script>
             
     @endpush
-
                 </div>
             </div>
         </div>

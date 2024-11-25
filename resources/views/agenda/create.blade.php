@@ -54,7 +54,7 @@
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
+                            <div> 
                                 <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
                                 <input type="date" name="date" id="date" class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500" value="{{ old('date', request('date')) }}">
                             </div>

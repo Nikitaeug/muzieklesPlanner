@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\musicLesson;
 use App\Models\student;
 use App\Models\teacher;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class AgendaController extends Controller
@@ -11,20 +12,32 @@ class AgendaController extends Controller
     public function index()
     {
         $events = [];
- 
-        $musicLessons = musicLesson::with(['student', 'teacher'])->get();
- 
+    
+        $user = Auth::user();
+    
+        if ($user->role === 'admin') {
+            $musicLessons = musicLesson::with(['student', 'teacher'])->get();
+        } elseif ($user->role === 'teacher') {
+            $musicLessons = musicLesson::with(['student', 'teacher'])
+                                       ->where('teacher_id', $user->id)
+                                       ->get();
+        } elseif ($user->role === 'student') {
+            $musicLessons = musicLesson::with(['student', 'teacher'])
+                                       ->where('student_id', $user->id)
+                                       ->get();
+        }
+    
         foreach ($musicLessons as $lesson) {
             $events[] = [
-                'title' => $lesson->student->name . ' ('.$lesson->teacher->name.')',
+                'title' => $lesson->student->name . ' (' . $lesson->teacher->name . ')',
                 'start' => $lesson->date . ' ' . $lesson->start_time,
                 'end' => $lesson->date . ' ' . $lesson->end_time,
-            
             ];
         }
- 
+    
         return view('agenda.index', compact('events'));
     }
+    
 
 
     public function create()
