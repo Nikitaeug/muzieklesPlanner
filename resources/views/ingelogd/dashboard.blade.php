@@ -230,9 +230,11 @@
                     <h2 class="text-xl font-semibold mb-4">Quick Actions</h2>
                     <div class="space-y-4">
                         @if(auth()->user()->role === 'admin')
+                        <a href="{{ route('admin.register') }}">
                             <button class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
                                 <i class="fas fa-user-plus mr-2"></i> Add New User
                             </button>
+                        </a>
                             <button class="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
                                 <i class="fas fa-cog mr-2"></i> System Settings
                             </button>

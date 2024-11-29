@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AgendaController;
-use App\Http\Controllers\AssignRoleController;
 use App\Http\Controllers\MusicLessonController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TimeSlotController;
@@ -10,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\AdminController;
 
 require __DIR__ . '/auth.php';
 
@@ -65,9 +65,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/musiclessons', [MusicLessonController::class, 'store'])->name('musiclessons.store');
     Route::patch('/musiclessons/update', [MusicLessonController::class, 'update'])->name('musiclessons.update');
 
-    // Role assignment routes
-    Route::get('/assign-role', [AssignRoleController::class, 'index'])->name('assign-role.index');
-    Route::post('/assign-role/{user}/{role}', [AssignRoleController::class, 'assign'])->name('assign-role.assign');
 
     // Admin user management routes
     Route::get('/users/users', [UserController::class, 'index'])->name('users.index');
@@ -77,4 +74,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback.index');
     Route::get('/feedback/create', [FeedbackController::class, 'create'])->name('feedback.create');
     Route::post('/feedback/store', [FeedbackController::class, 'store'])->name('feedback.store');
+
+    Route::get('/admin/register', [AdminController::class, 'showRegistrationForm'])->name('admin.register');
+    Route::post('/admin/register', [AdminController::class, 'register']);
 });
