@@ -42,9 +42,8 @@ Route::get('/about', function () {
 })->name('about')->middleware('guest');
 
 // Lessons page route
-Route::get('/lessons', function () {
-    return view('lessons');
-})->name('lessons')->middleware('guest');
+Route::get('/lessons', [MusicLessonController::class, 'index'])->name('agenda.index');
+Route::get('/lessons/create', [MusicLessonController::class, 'create'])->name('agenda.create');
 
 // User creation routes
 Route::get('/user/create', [UserController::class, 'create'])->name('users.create');
@@ -57,9 +56,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Agenda routes
-    Route::get('/agenda', [AgendaController::class, 'index'])->name('agenda.index');
-    Route::get('/agenda/create', [AgendaController::class, 'create'])->name('agenda.create');
-    Route::post('/agenda/store', [AgendaController::class, 'store'])->name('agenda.store');
+    Route::get('/agenda', [MusicLessonController::class, 'index'])->name('agenda.index');
+    Route::get('/agenda/create', [MusicLessonController::class, 'create'])->name('agenda.create');
+    Route::post('/agenda/store', [MusicLessonController::class, 'store'])->name('agenda.store');
 
     // Music lessons routes
     Route::get('/musiclessons/create', [MusicLessonController::class, 'create'])->name('musiclessons.create');

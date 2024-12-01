@@ -3,40 +3,77 @@
 namespace App\Http\Controllers;
 
 use App\Models\MusicLesson;
+use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class MusicLessonController extends Controller
 {
-
-
-
-public function getLessons()
-{
-    $lessons = MusicLesson::with(['teacher.user', 'student.user'])->get();
-
-    if ($lessons->isEmpty()) {
-        return response()->json(['message' => 'No lessons found'], 404);
+    public function index()
+    {
+        $events = [];
+        $user = Auth::user();
+    
+        if ($user->role === 'admin') {
+            $musicLessons = MusicLesson::with(['student', 'teacher'])->get();
+        } elseif ($user->role === 'teacher') {
+            $musicLessons = MusicLesson::with(['student', 'teacher'])
+                                     ->where('teacher_id', $user->id)
+                                     ->get();
+        } elseif ($user->role === 'student') {
+            $musicLessons = MusicLesson::with(['student', 'teacher'])
+                                     ->where('student_id', $user->id)
+                                     ->get();
+        }
+    
+        foreach ($musicLessons as $lesson) {
+            $events[] = [
+                'title' => $lesson->student->name . ' (' . $lesson->teacher->name . ')',
+                'start' => $lesson->date . ' ' . $lesson->start_time,
+                'end' => $lesson->date . ' ' . $lesson->end_time,
+            ];
+        }
+    
+        return view('agenda.index', compact('events'));
     }
 
-    $events = $lessons->map(function($lesson) {
-        return [
-            'id' => $lesson->id,
-            'title' => $lesson->title,
-            'start' => $lesson->date . 'T' . $lesson->start_time,
-            'end' => $lesson->date . 'T' . $lesson->end_time,
-            'extendedProps' => [
-                'teacher' => $lesson->teacher->user->name ?? 'Unknown Teacher', 
-                'student' => $lesson->student->user->name ?? 'Unknown Student',
-                'comments' => $lesson->comment ?? 'No comment provided',
-                'is_proefles' => $lesson->is_proefles,
-            ],
-        ];
-    });
+    public function create(Request $request)
+    {
+        $start = $request->query('start');
+        $end = $request->query('end');
+        $teachers = Teacher::all();
+        $students = Student::all();
 
-    return response()->json($events);
-}
+        return view('agenda.create', compact('start', 'end', 'teachers', 'students'));
+    }
 
+    public function getLessons()
+    {
+        $lessons = MusicLesson::with(['teacher.user', 'student.user'])->get();
+
+        if ($lessons->isEmpty()) {
+            return response()->json(['message' => 'No lessons found'], 404);
+        }
+
+        $events = $lessons->map(function($lesson) {
+            return [
+                'id' => $lesson->id,
+                'title' => $lesson->title,
+                'start' => $lesson->date . 'T' . $lesson->start_time,
+                'end' => $lesson->date . 'T' . $lesson->end_time,
+                'extendedProps' => [
+                    'teacher' => $lesson->teacher->user->name ?? 'Unknown Teacher', 
+                    'student' => $lesson->student->user->name ?? 'Unknown Student',
+                    'comments' => $lesson->comment ?? 'No comment provided',
+                    'is_proefles' => $lesson->is_proefles,
+                ],
+            ];
+        });
+
+        return response()->json($events);
+    }
 
     public function store(Request $request)
     {
@@ -97,16 +134,4 @@ public function getLessons()
 
         return redirect()->route('agenda.index');
     }
-
-    public function create(Request $request)
-    {
-    
-        $start = $request->query('start');
-        $end = $request->query('end');
-
-     
-        return view('agenda.create', compact('start', 'end'));
-    }
-    
-    
 }
