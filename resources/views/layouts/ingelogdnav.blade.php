@@ -20,6 +20,13 @@
                     <span class="ml-2">Agenda</span>
                 </a>
             </li>
+            <li class="mb-4">
+                <a href="{{route('agenda.available-slots')}}"
+                    class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
+                    <i class="text-xl iconoir-calendar"></i>
+                    <span class="ml-2">available time slots</span>
+                </a>
+            </li>
 
        
             

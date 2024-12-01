@@ -41,9 +41,8 @@ Route::get('/about', function () {
     return view('about');
 })->name('about')->middleware('guest');
 
-// Lessons page route
-Route::get('/lessons', [MusicLessonController::class, 'index'])->name('agenda.index');
-Route::get('/lessons/create', [MusicLessonController::class, 'create'])->name('agenda.create');
+
+
 
 // User creation routes
 Route::get('/user/create', [UserController::class, 'create'])->name('users.create');
@@ -82,5 +81,25 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/register', [AdminController::class, 'register']);
 
     Route::get('/admin/users', [UserController::class, 'index'])->name('admin.index');
+
+
+    // Lessons page route
+
+    Route::get('/lessons', [MusicLessonController::class, 'index'])->name('agenda.index');
+    Route::get('/lessons/create', [MusicLessonController::class, 'create'])->name('agenda.create');
+    
+    // New routes for availability management
+    Route::get('/teacher/availability', [MusicLessonController::class, 'teacherAvailability'])->name('agenda.availability');
+    Route::post('/teacher/availability', [MusicLessonController::class, 'store'])->name('agenda.availability.store');
+    
+    // Routes for students to book lessons
+    Route::get('/available-slots', [MusicLessonController::class, 'availableSlots'])
+        ->name('agenda.available-slots');
+    
+    Route::post('/book-lesson/{lesson}', [MusicLessonController::class, 'bookLesson'])
+        ->name('agenda.book');
+    
+    Route::post('/cancel-lesson/{lesson}', [MusicLessonController::class, 'cancelLesson'])
+        ->name('agenda.cancel');
 
 });

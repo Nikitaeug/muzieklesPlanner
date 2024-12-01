@@ -14,9 +14,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        
+
         $user = Auth::user();
-        
+
         switch ($user->role) {
             case 'admin':
                 $data = $this->getAdminDashboardData();
@@ -33,14 +33,14 @@ class DashboardController extends Controller
         }
 
         $data['userRole'] = $user->role;
-    
+
         return view('ingelogd.dashboard', compact('data'));
     }
 
     private function getAdminDashboardData()
     {
         $totalUsers = User::count();
-        
+
         $lessonsGiven = MusicLesson::where('date', '<', Carbon::now())
             ->count();
 
@@ -69,16 +69,16 @@ class DashboardController extends Controller
     private function getTeacherDashboardData($user)
     {
         $teacher = Teacher::where('user_id', $user->id)->first();
-        
+
         $upcomingLessons = MusicLesson::where('teacher_id', $teacher->id)
             ->where('date', '>=', Carbon::now())
-            ->count();
+            ->count();  
 
-        $studentCount = Student::whereHas('musicLessons', function($query) use ($teacher) {
+        $studentCount = Student::whereHas('musicLessons', function ($query) use ($teacher) {
             $query->where('teacher_id', $teacher->id);
         })->count();
 
-        $lessonsCount = MusicLesson::where('teacher_id', $teacher->id)->count(); 
+        $lessonsCount = MusicLesson::where('teacher_id', $teacher->id)->count();
 
         $lessons = MusicLesson::with('student.user')
             ->where('teacher_id', $teacher->id)
@@ -90,9 +90,9 @@ class DashboardController extends Controller
                 return [
                     'title' => $lesson->title,
                     'date' => Carbon::parse($lesson->date)->format('Y-m-d'),
-                    'student_name' => optional($lesson->student->user)->name ?? 'Unknown Student'
+                    'student_name' => ($lesson->student->user->name) ?? 'Unknown Student'
                 ];
-            });
+            });     
 
         return [
             'upcomingLessons' => $upcomingLessons,
