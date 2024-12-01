@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StudentGuardianController;
 
 require __DIR__ . '/auth.php';
 
@@ -65,6 +66,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/musiclessons', [MusicLessonController::class, 'store'])->name('musiclessons.store');
     Route::patch('/musiclessons/update', [MusicLessonController::class, 'update'])->name('musiclessons.update');
 
+    Route::get('/studentGuardian', [StudentGuardianController::class, 'index'])->name('studentGuardian.index');
+    Route::put('/studentGuardian/{student}', [StudentGuardianController::class, 'update'])->name('studentGuardian.update');
+
 
     // Admin user management routes
     Route::get('/users/users', [UserController::class, 'index'])->name('users.index');
@@ -77,4 +81,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin/register', [AdminController::class, 'showRegistrationForm'])->name('admin.register');
     Route::post('/admin/register', [AdminController::class, 'register']);
+
+    Route::get('/admin/users', [UserController::class, 'index'])->name('admin.index');
+
 });

@@ -21,28 +21,37 @@
                 </a>
             </li>
 
+       
+            
+            @if (auth()->user()->role == 'admin')
             <li class="mb-4">
-                <a href="{{ route('feedback.index') }}"
+                <a href="{{route('users.index')}}"
                     class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
-                    <i class="text-xl iconoir-calendar"></i>
-                    <span class="ml-2">all feedback</span>
+                    <i class="text-xl iconoir-user-circle"></i>
+                    <span class="ml-2">all users</span>
                 </a>
             </li>
-        
-            @if (auth()->user()->role == 'admin')
-                <li class="mb-4">
-                    <a href="{{ route('admin.register') }}"
-                        class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
+            <li class="mb-4">
+                <a href="{{ route('admin.register') }}"
+                class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
                         <i class="text-xl iconoir-user-plus"></i>
                         <span class="ml-2">Add new User</span>
                     </a>
                 </li>
 
                 <li class="mb-4">
-                    <a href="/manage-student-guardians"
+                    <a href="/studentGuardian"
                         class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
                         <i class="text-xl iconoir-user-circle"></i>
                         <span class="ml-2">Manage Student Guardians</span>
+                    </a>
+                </li>
+
+                <li class="mb-4">
+                    <a href="{{ route('feedback.index') }}"
+                        class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
+                        <i class="text-xl iconoir-calendar"></i>
+                        <span class="ml-2">all feedback</span>
                     </a>
                 </li>
 
@@ -55,14 +64,33 @@
                     </a>
                 </li>
             @endif
+
             @if (auth()->user()->role == 'student')
-                <li class="mb-4">
-                    <a href="/assign-guardians"
-                        class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
-                        <i class="text-xl iconoir-group"></i>
-                        <span class="ml-2">Assign Guardian</span>
-                    </a>
-                </li>
+            <li class="mb-4">
+                <a href="/studentGuardian"
+                    class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
+                    <i class="text-xl iconoir-user-circle"></i>
+                    <span class="ml-2">Manage guardian</span>
+                </a>
+            </li>
+            @endif
+
+            @if (auth()->user()->role == 'guardian')
+            <li class="mb-4">
+                <a href="/studentGuardian"
+                    class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
+                    <i class="text-xl iconoir-user-circle"></i>
+                    <span class="ml-2">Manage Child</span>
+                </a>
+            </li>
+
+            <li class="mb-4">
+                <a href="{{ route('feedback.index') }}"
+                    class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
+                    <i class="text-xl iconoir-calendar"></i>
+                    <span class="ml-2">all your feedback</span>
+                </a>
+            </li>
             @endif
 
             @if (auth()->user()->role == 'teacher')
@@ -71,6 +99,14 @@
                         class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
                         <i class="text-xl iconoir-user-circle"></i>
                         <span class="ml-2">Manage Student Guardians</span>
+                    </a>
+                </li>
+
+                <li class="mb-4">
+                    <a href="{{ route('feedback.index') }}"
+                        class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
+                        <i class="text-xl iconoir-calendar"></i>
+                        <span class="ml-2">all your feedback</span>
                     </a>
                 </li>
 

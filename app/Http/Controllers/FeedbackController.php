@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Feedback;
 use App\Models\MusicLesson;
 use App\Models\Teacher;
+use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 
 class FeedbackController extends Controller
@@ -17,14 +18,20 @@ class FeedbackController extends Controller
         $feedbacks = Feedback::all();
     } elseif(Auth::user()->role == 'teacher') {
         $feedbacks = Feedback::where('user_id', Auth::id())->get();
+    } elseif(Auth::user()->role == 'guardian') {
+        $guardianId = Auth::user()->guardian->id;
+        $studentIds = Student::where('guardian_id', $guardianId)->pluck('id')->toArray();
+        
+        $feedbacks = Feedback::whereHas('musicLesson', function($query) use ($studentIds) {
+            $query->whereIn('student_id', $studentIds);
+        })->get();
     } else {
-        $student = Auth::user()->student;
-        $feedbacks = Feedback::whereHas('musicLesson', function($query) use ($student) {
-            $query->where('student_id', $student->id);
+        $feedbacks = Feedback::whereHas('musicLesson', function($query) {
+            $query->where('student_id', Auth::id());
         })->get();
     }
 
-    return view('feedback.index', compact('feedbacks',));
+    return view('feedback.index', compact('feedbacks'));
     }
     
     public function create()
