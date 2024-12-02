@@ -20,6 +20,7 @@
                     <span class="ml-2">Agenda</span>
                 </a>
             </li>
+            @if (auth()->user()->role != 'admin')
             <li class="mb-4">
                 <a href="{{route('agenda.available-slots')}}"
                     class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
@@ -27,6 +28,7 @@
                     <span class="ml-2">available time slots</span>
                 </a>
             </li>
+            @endif
 
        
             
@@ -62,14 +64,6 @@
                     </a>
                 </li>
 
-                
-                <li class="mb-4">
-                    <a href="/feedback/create"
-                        class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
-                        <i class="text-xl iconoir-user-circle"></i>
-                        <span class="ml-2">add feedback</span>
-                    </a>
-                </li>
             @endif
 
             @if (auth()->user()->role == 'student')
@@ -95,19 +89,12 @@
                 <a href="{{ route('feedback.index') }}"
                     class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
                     <i class="text-xl iconoir-calendar"></i>
-                    <span class="ml-2">all your feedback</span>
+                    <span class="ml-2">feedback</span>
                 </a>
             </li>
             @endif
 
             @if (auth()->user()->role == 'teacher')
-                <li class="mb-4">
-                    <a href="/manage-student-guardians"
-                        class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
-                        <i class="text-xl iconoir-user-circle"></i>
-                        <span class="ml-2">Manage Student Guardians</span>
-                    </a>
-                </li>
 
                 <li class="mb-4">
                     <a href="{{ route('feedback.index') }}"
