@@ -12,8 +12,8 @@
             @foreach($feedbacks as $feedback)
                           <li class="p-4 border rounded-lg shadow-md bg-white">
                     <strong class="text-lg">{{ $feedback->musicLesson->title }}</strong><br>
-                    <strong>teacher:</strong> <span class="text-gray-700">{{ $feedback->user->name }}</span><br>
-                    <strong>student:</strong> <span class="text-gray-700">{{ $feedback->musicLesson->student->user->name }}</span><br>
+                    <strong>teacher:</strong> <span class="text-gray-700">{{ optional($feedback->user)->name ?? 'N/A' }}</span><br>
+                    <strong>student:</strong> <span class="text-gray-700">{{ optional($feedback->musicLesson->student)->user->name ?? 'N/A' }}</span><br>
                     <strong>Feedback:</strong> <span class="text-gray-700">{{ $feedback->feedback }}</span>
                 </li>
             @endforeach

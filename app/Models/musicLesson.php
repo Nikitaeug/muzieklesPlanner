@@ -22,10 +22,10 @@ class MusicLesson extends Model
         'is_proefles',
     ];
 
-    public function teacher(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'teacher_id');
-    }
+    public function teacher()
+   {
+       return $this->belongsTo(Teacher::class);
+   }
 
     public function student(): BelongsTo
     {

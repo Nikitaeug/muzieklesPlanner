@@ -13,25 +13,21 @@ class MusicLessonController extends Controller
 {
     public function index()
     {
-        $user = Auth::user(); // Get the authenticated user
+        $user = Auth::user();
 
-        // Initialize the events variable
-        $events = [];
-
-        // Check the user's role and fetch lessons accordingly
+      
         switch ($user->role) {
             case 'admin':
-                // Admin sees all lessons
-                $events = MusicLesson::with(['teacher', 'student.user']) // Eager load relationships
+                $events = MusicLesson::with(['teacher', 'student.user']) 
                     ->orderBy('date')
                     ->get();
                 break;
 
             case 'teacher':
-                // Teacher sees their own lessons
-                $teacher = $user->teacher; // Get the teacher model
+                $teacher = $user->teacher;
+
                 if ($teacher) {
-                    $events = MusicLesson::with(['student.user']) // Eager load student and user
+                    $events = MusicLesson::with(['student.user'])
                         ->where('teacher_id', $teacher->id)
                         ->orderBy('date')
                         ->get();
@@ -39,10 +35,9 @@ class MusicLessonController extends Controller
                 break;
 
             case 'student':
-                // Student sees their own lessons
-                $student = $user->student; // Get the student model
+                $student = $user->student; 
                 if ($student) {
-                    $events = MusicLesson::with(['teacher', 'student']) // Eager load teacher and student
+                    $events = MusicLesson::with(['teacher', 'student']) 
                         ->where('student_id', $student->id)
                         ->orderBy('date')
                         ->get();
@@ -50,7 +45,7 @@ class MusicLessonController extends Controller
                 break;
 
             default:
-                // Handle other roles or no lessons
+             
                 $events = [];
                 break;
         }
