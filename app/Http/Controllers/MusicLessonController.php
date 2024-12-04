@@ -19,6 +19,7 @@ class MusicLessonController extends Controller
         switch ($user->role) {
             case 'admin':
                 $events = MusicLesson::with(['teacher', 'student.user'])
+                    ->where('date', '>=', now())
                     ->orderBy('date')
                     ->get();
                 break;
@@ -40,6 +41,7 @@ class MusicLessonController extends Controller
                 if ($student) {
                     $events = MusicLesson::with(['teacher', 'student'])
                         ->where('student_id', $student->id)
+                        ->where('date', '>=', now())
                         ->orderBy('date')
                         ->get();
                 }

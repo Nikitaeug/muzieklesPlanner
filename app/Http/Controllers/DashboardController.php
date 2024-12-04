@@ -155,7 +155,8 @@ class DashboardController extends Controller
             ->where('date', '<', Carbon::now())
             ->count();
 
-        $tasks = MusicLesson::where('student_id', $student->id)
+            $lessons = MusicLesson::with('student.user')
+            ->where('student_id', $student->id)
             ->where('date', '>=', Carbon::now())
             ->orderBy('date')
             ->take(5)
@@ -163,14 +164,17 @@ class DashboardController extends Controller
             ->map(function ($lesson) {
                 return [
                     'title' => $lesson->title,
-                    'due_date' => Carbon::parse($lesson->date)
+                    'date' => Carbon::parse($lesson->date)->format('Y-m-d'),
+                    'student_name' => ($lesson->student->user->name) ?? 'Unknown Student'
                 ];
-            });
+            });     
+
+  
 
         return [
             'myLessons' => $myLessons,
             'completedLessons' => $completedLessons,
-            'tasks' => $tasks
+            'lessons' => $lessons
         ];
     }
 }

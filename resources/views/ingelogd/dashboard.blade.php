@@ -205,24 +205,24 @@
                                 <p class="text-gray-500">No recent lessons found</p>
                             @endforelse
                         </div>
-                    @else
-                        <h2 class="text-xl font-semibold mb-4">My lessons</h2>
-                        <div class="space-y-4">
-                            {{-- @forelse() --}}
+                    @elseif(auth()->user()->role === 'student')
+                    <h2 class="text-xl font-semibold mb-4">My Upcoming Lessons</h2>
+                    <div class="space-y-4">
+                        @forelse($data['lessons'] as $lesson)
                             <div class="flex items-center border-b pb-4">
                                 <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
-                                    <i class="fas fa-tasks text-gray-500"></i>
+                                    <i class="fas fa-calendar-alt text-gray-500"></i>
                                 </div>
                                 <div class="ml-4">
-                                    <p class="font-medium"></p>
-                                    <p class="text-sm text-gray-500"></p>
+                                    <p class="font-medium">{{ $lesson['title'] }}</p>
+                                    <p class="text-sm text-gray-500">{{ $lesson['date'] }}</p>
                                 </div>
                             </div>
-                            {{-- @empty --}}
-                            <p class="text-gray-500">No tasks assigned</p>
-                            {{-- @endforelse --}}
-                        </div>
-                    @endif
+                        @empty
+                            <p class="text-gray-500">No upcoming lessons</p>
+                        @endforelse
+                    </div>
+                @endif
                 </div>
             </div>
 
