@@ -13,25 +13,21 @@ class MusicLessonController extends Controller
 {
     public function index()
     {
-        $user = Auth::user(); // Get the authenticated user
+        $user = Auth::user();
 
-        // Initialize the events variable
-        $events = [];
 
-        // Check the user's role and fetch lessons accordingly
         switch ($user->role) {
             case 'admin':
-                // Admin sees all lessons
-                $events = MusicLesson::with(['teacher', 'student.user']) // Eager load relationships
+                $events = MusicLesson::with(['teacher', 'student.user'])
                     ->orderBy('date')
                     ->get();
                 break;
 
             case 'teacher':
-                // Teacher sees their own lessons
-                $teacher = $user->teacher; // Get the teacher model
+                $teacher = $user->teacher;
+
                 if ($teacher) {
-                    $events = MusicLesson::with(['student.user']) // Eager load student and user
+                    $events = MusicLesson::with(['student.user'])
                         ->where('teacher_id', $teacher->id)
                         ->where('date', '>=', now())
                         ->orderBy('date')
@@ -40,10 +36,9 @@ class MusicLessonController extends Controller
                 break;
 
             case 'student':
-                // Student sees their own lessons
-                $student = $user->student; // Get the student model
+                $student = $user->student;
                 if ($student) {
-                    $events = MusicLesson::with(['teacher', 'student']) // Eager load teacher and student
+                    $events = MusicLesson::with(['teacher', 'student'])
                         ->where('student_id', $student->id)
                         ->orderBy('date')
                         ->get();
@@ -51,7 +46,7 @@ class MusicLessonController extends Controller
                 break;
 
             default:
-                // Handle other roles or no lessons
+
                 $events = [];
                 break;
         }
@@ -165,7 +160,7 @@ class MusicLessonController extends Controller
         // Fetch children for guardians
         $children = [];
         if (auth::check() && auth::user()->role === 'guardian') {
-            $children = Student::where('guardian_id', auth::id())->get(); // Fetch children of the guardian
+            $children = Student::where('guardian_id', auth::user()->guardian->id)->get();
         }
 
         return view('agenda.available-slots', compact('availableSlots', 'children'));
@@ -173,10 +168,11 @@ class MusicLessonController extends Controller
 
     public function bookLesson(Request $request, MusicLesson $lesson)
     {
-        if (auth::user()->role !== 'student') {
+        if (!auth::check()) {
             return redirect()->route('agenda.index')
-                ->with('error', 'Only students can book lessons.');
+                ->with('error', 'You must be logged in to book lessons.');
         }
+
 
         // Verify the slot is still available
         if ($lesson->status !== 'available') {
