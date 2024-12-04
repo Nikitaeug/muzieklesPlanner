@@ -18,7 +18,7 @@
                     @endif
                 </div>
 
-                @if ($events->isEmpty())
+                @if (collect($events)->isEmpty())
                     <p class="text-gray-600">No lessons available.</p>
                 @else
                     <table class="min-w-full divide-y divide-gray-200 mt-6">

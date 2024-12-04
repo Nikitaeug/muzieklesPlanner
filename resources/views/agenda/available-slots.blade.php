@@ -42,7 +42,7 @@
                                             <label for="child" class="text-white">Select Child:</label>
                                             <select name="student_id" id="child" class="w-full rounded-lg text-gray-800">
                                                 @foreach($children as $child)
-                                                    <option value="{{ $child->id }}">{{ $child->name }}</option>
+                                                    <option value="{{ $child->id }}">{{ $child->user->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
