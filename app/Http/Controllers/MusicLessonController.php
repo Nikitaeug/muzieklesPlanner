@@ -33,6 +33,7 @@ class MusicLessonController extends Controller
                 if ($teacher) {
                     $events = MusicLesson::with(['student.user']) // Eager load student and user
                         ->where('teacher_id', $teacher->id)
+                        ->where('date', '>=', now())
                         ->orderBy('date')
                         ->get();
                 }
