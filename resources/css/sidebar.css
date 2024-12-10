@@ -1,0 +1,24 @@
+#sidebar ul {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+#sidebar ul::-webkit-scrollbar {
+    width: 4px;
+}
+
+#sidebar ul::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#sidebar ul::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+}
+
+/* Add responsive styles */
+@media (max-width: 1023px) {
+    body:has(#nav-toggle:checked) {
+        overflow: hidden;
+    }
+} 

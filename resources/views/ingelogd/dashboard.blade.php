@@ -1,17 +1,17 @@
 <x-app-layout>
-    <div class="overflow-y-auto flex-1 p-6">
+    <div class="overflow-y-auto flex-1 p-4 sm:p-6">
         <!-- Header Section -->
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold">Dashboard</h1>
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+            <h1 class="text-2xl sm:text-3xl font-bold">Dashboard</h1>
             @if (auth()->user()->role === 'admin')
                 <a href="{{ route('users.index') }}"
-                    class="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
+                    class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
                     <i class="fas fa-users-cog mr-2"></i> Manage Users
                 </a>
             @elseif(auth()->user()->role === 'teacher')
-                <a href="{{ route('agenda.index') }}">
+                <a href="{{ route('agenda.index') }}" class="w-full sm:w-auto">
                     <button
-                        class="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
+                        class="w-full inline-flex items-center justify-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
                         <i class="fas fa-plus mr-2"></i> add lesson
                     </button>
                 </a>
@@ -19,7 +19,7 @@
         </div>
 
         <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6">
             @if (auth()->user()->role === 'admin')
                 <!-- Admin Stats -->
                 <div class="bg-white rounded-lg shadow p-6">
@@ -124,10 +124,10 @@
         </div>
 
         <!-- Main Content Area -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
             <!-- Role-specific Content -->
             <div class="lg:col-span-2 bg-white rounded-lg shadow">
-                <div class="p-6">
+                <div class="p-4 sm:p-6">
                     @if (auth()->user()->role === 'admin')
                         <h2 class="text-xl font-semibold mb-4">Recent Lessons</h2>
                         <div class="space-y-4">
@@ -228,70 +228,62 @@
 
             <!-- Quick Actions -->
             <div class="bg-white rounded-lg shadow">
-                <div class="p-6">
+                <div class="p-4 sm:p-6">
                     <h2 class="text-xl font-semibold mb-4">Quick Actions</h2>
-                    <div class="space-y-4">
+                    <div class="space-y-3">
                         @if (auth()->user()->role === 'admin')
-                            <div class="mb-4">
-                                <a href="{{ route('admin.register') }}">
+                            <div class="grid gap-3">
+                                <a href="{{ route('admin.register') }}" class="block">
                                     <button
-                                        class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                                        class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition text-sm sm:text-base">
                                         <i class="fas fa-user-plus mr-2"></i> Add New User
                                     </button>
                                 </a>
-                            </div>
-                            <div class="mb-4">
-                                <a href="{{ route('feedback.index') }}">
+                                <a href="{{ route('feedback.index') }}" class="block">
                                     <button
-                                        class="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
-                                        <i class="fas fa-cog mr-2"></i> all feedback
+                                        class="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition text-sm sm:text-base">
+                                        <i class="fas fa-cog mr-2"></i> All Feedback
                                     </button>
                                 </a>
-                            </div>
-                            <div class="mb-4">
-                                <a href="{{ route('studentGuardian.index') }}">
+                                <a href="{{ route('studentGuardian.index') }}" class="block">
                                     <button
-                                        class="w-full bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition">
-                                        <i class="fas fa-download mr-2"></i> manage-student-guardians
+                                        class="w-full bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition text-sm sm:text-base">
+                                        <i class="fas fa-download mr-2"></i> Manage Student-Guardians
                                     </button>
                                 </a>
                             </div>
                         @elseif(auth()->user()->role === 'teacher')
-                            <a href="{{ route('feedback.create') }}">
+                            <a href="{{ route('feedback.create') }}" class="block">
                                 <button
-                                    class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                                    class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition text-sm sm:text-base">
                                     <i class="fas fa-plus mr-2"></i> Add Feedback
                                 </button>
                             </a>
                         @elseif(auth()->user()->role === 'guardian')
-                        <div class="mb-4">
-                            <a href="{{route('studentGuardian.index')}}">
-                                <button
-                                    class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
-                                    <i class="fas fa-plus mr-2"></i> manage child
-                                </button>
-                            </a>
-                        </div>
-                            <div class="mb-4">
-                                <a href="help">
+                            <div class="grid gap-3">
+                                <a href="{{route('studentGuardian.index')}}" class="block">
                                     <button
-                                        class="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
-                                        <i class="fas fa-user-plus mr-2"></i> help
+                                        class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition text-sm sm:text-base">
+                                        <i class="fas fa-plus mr-2"></i> Manage Child
+                                    </button>
+                                </a>
+                                <a href="help" class="block">
+                                    <button
+                                        class="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition text-sm sm:text-base">
+                                        <i class="fas fa-user-plus mr-2"></i> Help
                                     </button>
                                 </a>
                             </div>
                         @else
-                            <div class="mb-4">
-                                <a href="{{route('agenda.index')}}">
-                                    <button class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
-                                        <i class="fas fa-tasks mr-2"></i> agenda
+                            <div class="grid gap-3">
+                                <a href="{{route('agenda.index')}}" class="block">
+                                    <button class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition text-sm sm:text-base">
+                                        <i class="fas fa-tasks mr-2"></i> Agenda
                                     </button>
                                 </a>
-                            </div>
-                            <div class="mb-4">
-                                <a href="{{route('studentGuardian.index')}}">
-                                    <button class="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
-                                        <i class="fas fa-clock mr-2"></i> manage guardian
+                                <a href="{{route('studentGuardian.index')}}" class="block">
+                                    <button class="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition text-sm sm:text-base">
+                                        <i class="fas fa-clock mr-2"></i> Manage Guardian
                                     </button>
                                 </a>
                             </div>
