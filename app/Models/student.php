@@ -11,6 +11,10 @@ class Student extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'guardian_id',
+    ];
 
     public function user()
     {
@@ -20,12 +24,7 @@ class Student extends Model
     public function guardian()
     {
         return $this->belongsTo(Guardian::class);
-    } 
-
-    protected $fillable = [
-        'user_id',
-        'guardian_id',
-    ];
+    }
 
     public function musicLessons()
     {

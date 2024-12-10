@@ -26,7 +26,7 @@ class Feedback extends Model
     }
 
     public function musicLesson()
-{
-    return $this->belongsTo(MusicLesson::class, 'music_lessons_id');
-}
+    {
+        return $this->belongsTo(MusicLesson::class, 'music_lessons_id');
+    }
 }
