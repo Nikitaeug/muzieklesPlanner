@@ -1,7 +1,7 @@
 <x-app-layout>
-    <div class="container">
-        <h1 class="text-center mb-4">Add Feedback</h1>
-        <form action="{{ route('feedback.store') }}" method="POST" class="bg-white p-5 rounded shadow-lg">
+    <div class="container mx-auto px-4">
+        <h1 class="text-2xl md:text-3xl text-center mb-4">Add Feedback</h1>
+        <form action="{{ route('feedback.store') }}" method="POST" class="bg-white p-4 md:p-5 rounded shadow-lg max-w-2xl mx-auto">
             @csrf
             <div class="form-group">
                 <label for="music_lessons_id" class="font-weight-bold">Lesson</label>
@@ -21,7 +21,7 @@
                 <label for="feedback" class="font-weight-bold">Feedback</label>
                 <textarea name="feedback" id="feedback" class="form-control border-2 border-gray-300 rounded-lg" required></textarea>
             </div>
-            <button type="submit" class="btn btn-success btn-lg btn-block">
+            <button type="submit" class="w-full md:w-auto btn btn-success btn-lg btn-block mt-4">
                 @if(auth()->user()->role === 'admin')
                     Submit Feedback as Admin
                 @elseif(auth()->user()->role === 'teacher')

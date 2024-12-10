@@ -12,7 +12,7 @@
                                 <p class="text-xl font-semibold">{{ \Carbon\Carbon::parse($slot->date)->format('l, F j, Y') }}</p>
                                 <p class="text-lg">{{ \Carbon\Carbon::parse($slot->start_time)->format('H:i') }} - 
                                    {{ \Carbon\Carbon::parse($slot->end_time)->format('H:i') }}</p>
-                                <p class="mt-2">Teacher: {{ $slot->teacher->name }}</p>
+                                <p class="mt-2">Teacher: {{ $slot->teacher->user->name }}</p>
                             </div>
 
                             @auth
@@ -22,7 +22,7 @@
                                         <input type="hidden" name="student_id" value="{{ auth()->user()->student->id }}">
                                         <div class="mb-3">
                                             <label class="flex items-center text-white">
-                                                <input type="checkbox" name="is_proefles" class="mr-2">
+                                                <input type="checkbox" name="is_proefles" value="1" class="mr-2">
                                                 Trial Lesson
                                             </label>
                                         </div>

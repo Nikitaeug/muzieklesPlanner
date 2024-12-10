@@ -1,10 +1,10 @@
 <x-app-layout>
     <body class="bg-gray-50 font-sans leading-normal tracking-normal">
-        <main class="flex flex-col items-center justify-center py-20">
-            <h1 class="text-5xl font-bold text-center mb-4 text-gray-800">Login to Your Account</h1>
+        <main class="flex flex-col items-center justify-center py-10 md:py-20 px-4">
+            <h1 class="text-3xl md:text-5xl font-bold text-center mb-4 text-gray-800">Login to Your Account</h1>
             <p class="text-lg text-gray-700 mb-8 text-center">Access your personalized music lessons and more.</p>
 
-            <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+            <div class="bg-white shadow-lg rounded-lg p-6 md:p-8 w-full max-w-md">
                 <!-- Session Status -->
                 <x-auth-session-status class="mb-4" :status="session('status')" />
 

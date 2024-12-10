@@ -1,8 +1,8 @@
 <x-app-layout>
-    <div class="py-20 bg-gray-100">
-        <div class="px-6 mx-auto max-w-7xl">
-            <h2 class="mb-3 text-4xl font-extrabold text-center text-blue-600">Unlock Your Musical Potential</h2>
-            <p class="mb-10 text-lg text-center text-gray-800">Discover the joy of learning music with our expert instructors and state-of-the-art facilities.</p>
+    <div class="py-10 md:py-20 bg-gray-100">
+        <div class="px-4 md:px-6 mx-auto max-w-7xl">
+            <h2 class="mb-3 text-3xl md:text-4xl font-extrabold text-center text-blue-600">Unlock Your Musical Potential</h2>
+            <p class="mb-8 md:mb-10 text-lg text-center text-gray-800">Discover the joy of learning music with our expert instructors and state-of-the-art facilities.</p>
             
             <!-- Free Lesson Box -->
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2">
