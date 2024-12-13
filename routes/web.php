@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\MusicLessonController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TimeSlotController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
@@ -101,5 +99,7 @@ Route::middleware('auth')->group(function () {
     
     Route::post('/cancel-lesson/{lesson}', [MusicLessonController::class, 'cancelLesson'])
         ->name('agenda.cancel');
+
+    Route::post('/agenda/cancel/{lesson}', [MusicLessonController::class, 'cancelLesson'])->name('agenda.cancel');
 
 });

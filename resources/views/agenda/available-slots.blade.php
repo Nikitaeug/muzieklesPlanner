@@ -21,6 +21,7 @@
                                         @csrf
                                         <input type="hidden" name="student_id" value="{{ auth()->user()->student->id }}">
                                         <div>
+                                            <input type="hidden" name="is_proefles" value="0">
                                             <label class="flex items-center text-white text-sm">
                                                 <input type="checkbox" name="is_proefles" value="1" class="mr-2">
                                                 Trial Lesson
@@ -47,8 +48,9 @@
                                             </select>
                                         </div>
                                         <div>
+                                            <input type="hidden" name="is_proefles" value="0">
                                             <label class="flex items-center text-white text-sm">
-                                                <input type="checkbox" name="is_proefles" class="mr-2">
+                                                <input type="checkbox" name="is_proefles" value="1" class="mr-2">
                                                 Trial Lesson
                                             </label>
                                         </div>

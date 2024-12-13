@@ -8,7 +8,7 @@
                         <a href="{{ route('agenda.availability') }}"
                             class="w-full sm:w-auto px-6 sm:px-8 py-2 sm:py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white text-center rounded-full shadow-lg transition duration-300 hover:scale-105">
                             Manage Availability
-                        </a>    
+                        </a>
                     @endif
                     @if (auth()->user()->role === 'student')
                         <a href="{{ route('agenda.available-slots') }}"
@@ -25,16 +25,24 @@
                         <table class="min-w-full divide-y divide-gray-200 mt-6">
                             <thead>
                                 <tr>
-                                    <th class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    <th
+                                        class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Title</th>
-                                    <th class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    <th
+                                        class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Date</th>
-                                    <th class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    <th
+                                        class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Time</th>
-                                    <th class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    <th
+                                        class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Student</th>
-                                    <th class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    <th
+                                        class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Teacher</th>
+                                    <th
+                                        class="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Actions</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
@@ -43,11 +51,25 @@
                                         <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm">{{ $event->title }}</td>
                                         <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm">
                                             {{ \Carbon\Carbon::parse($event->date)->format('Y-m-d') }}</td>
-                                        <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm">{{ $event->start_time }} -
+                                        <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm">{{ $event->start_time }}
+                                            -
                                             {{ $event->end_time }}</td>
-                                        <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm">{{ $event->student->user->name ?? 'N/A' }}
+                                        <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm">
+                                            {{ $event->student->user->name ?? 'N/A' }}
                                         </td>
-                                        <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm">{{ $event->teacher->user->name ?? 'N/A' }}</td>
+                                        <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm">
+                                            {{ $event->teacher->user->name ?? 'N/A' }}</td>
+                                        <td class="px-4 sm:px-6 py-4 whitespace-nowrap text-sm">
+                                            <form action="{{ route('agenda.cancel', $event->id) }}" method="POST"
+                                                class="inline">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm"
+                                                    onclick="return confirm('Are you sure you want to cancel this lesson?')">
+                                                    Cancel
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
