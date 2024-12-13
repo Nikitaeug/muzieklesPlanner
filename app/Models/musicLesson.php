@@ -23,9 +23,9 @@ class MusicLesson extends Model
     ];
 
     public function teacher()
-   {
-       return $this->belongsTo(Teacher::class);
-   }
+    {
+        return $this->belongsTo(Teacher::class);
+    }
 
     public function student(): BelongsTo
     {

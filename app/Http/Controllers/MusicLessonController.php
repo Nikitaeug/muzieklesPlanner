@@ -170,33 +170,37 @@ class MusicLessonController extends Controller
 
     public function bookLesson(Request $request, MusicLesson $lesson)
     {
-        if (!auth::check()) {
+        try {
+            if (!auth::check()) {
+                return redirect()->route('agenda.index')
+                    ->with('error', 'You must be logged in to book lessons.');
+            }
+
+            // Verify the slot is still available
+            if ($lesson->status !== 'available') {
+                return back()->with('error', 'This time slot is no longer available');
+            }
+
+            $request->validate([
+                'student_id' => 'required|exists:students,id',
+                'is_proefles' => 'boolean', // Now it will be a boolean
+                'comments' => 'nullable|string|max:255',
+            ]);
+
+            // Update the lesson with the correct values
+            $lesson->update([
+                'student_id' => $request->student_id,
+                'status' => 'booked',
+                'is_proefles' => $request->input('is_proefles'), // This will now be true or false
+                'comments' => $request->comments,
+            ]);
+
             return redirect()->route('agenda.index')
-                ->with('error', 'You must be logged in to book lessons.');
+                ->with('success', 'Lesson booked successfully');
+        } catch (\Exception $e) {
+            return redirect()->route('agenda.index')
+                ->with('error', 'An error occurred while booking the lesson. Please try again.');
         }
-
-
-        // Verify the slot is still available
-        if ($lesson->status !== 'available') {
-            return back()->with('error', 'This time slot is no longer available');
-        }
-
-        $request->validate([
-            'student_id' => 'required|exists:students,id',
-            'is_proefles' => 'boolean',
-            'comments' => 'nullable|string|max:255',
-        ]);
-
-        $lesson->update([
-            'student_id' => $request->student_id,
-            'status' => 'booked',
-            'is_proefles' => $request->is_proefles ?? false,
-            'comments' => $request->comments,
-        ]);
-
-
-        return redirect()->route('agenda.index')
-            ->with('success', 'Lesson booked successfully');
     }
 
     public function cancelLesson(MusicLesson $lesson)

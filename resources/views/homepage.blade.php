@@ -3,13 +3,13 @@
     <img class="object-cover absolute top-0 left-0 z-0 w-full h-96" src="/muziekles.png" alt="123">
     <div class="absolute top-0 left-0 w-full h-96 bg-blue-500 opacity-30 z-9"></div> <!-- Overlay met blauwe tint -->
     <main class="flex flex-col justify-center items-center py-20">
-        <h1 class="z-0 mb-4 text-5xl font-bold text-center text-white">Elevate Your Music Skills</h1>
-        <a href="/register" class="z-0 px-8 py-3 text-white bg-gradient-to-r from-purple-500 to-blue-500 rounded-full shadow-lg transition duration-300 hover:scale-105 hover:shadow-lg">Start Your Journey</a>
+        <h1 class="z-0 mb-4 text-3xl md:text-5xl font-bold text-center text-white">Elevate Your Music Skills</h1>
+        <a href="/register" class="z-0 px-6 md:px-8 py-3 text-white bg-gradient-to-r from-purple-500 to-blue-500 rounded-full shadow-lg transition duration-300 hover:scale-105 hover:shadow-lg">Start Your Journey</a>
     </main>
 
-    <section class="px-4 py-16 mx-auto max-w-6xl">
-        <h2 class="mb-8 text-4xl font-bold text-center text-gray-800">What We Offer</h2>
-        <div class="grid grid-cols-1 gap-10 md:grid-cols-3">
+    <section class="px-4 py-8 md:py-16 mx-auto max-w-6xl">
+        <h2 class="mb-8 text-3xl md:text-4xl font-bold text-center text-gray-800">What We Offer</h2>
+        <div class="grid grid-cols-1 gap-6 md:gap-10 md:grid-cols-3">
             <div class="p-6 bg-gradient-to-r from-purple-600 to-blue-500 rounded-lg shadow-2xl transition-transform transform hover:scale-105">
                 <i class="mb-4 text-4xl text-white iconoir-music-note"></i>
                 <h3 class="mb-2 text-xl font-semibold text-white">Custom Lessons</h3>
