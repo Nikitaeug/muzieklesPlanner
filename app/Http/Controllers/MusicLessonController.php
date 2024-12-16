@@ -18,6 +18,7 @@ class MusicLessonController extends Controller
         switch ($user->role) {
             case 'admin':
                 $events = MusicLesson::with(['teacher', 'student.user'])
+                    ->where('date', '>=', now())
                     ->orderBy('date')
                     ->get();
                 break;
@@ -28,6 +29,7 @@ class MusicLessonController extends Controller
                 if ($teacher) {
                     $events = MusicLesson::with(['student.user'])
                         ->where('teacher_id', $teacher->id)
+                        ->where('date', '>=', now())
                         ->orderBy('date')
                         ->get();
                 }
@@ -38,6 +40,7 @@ class MusicLessonController extends Controller
                 if ($student) {
                     $events = MusicLesson::with(['teacher', 'student'])
                         ->where('student_id', $student->id)
+                        ->where('date', '>=', now())
                         ->orderBy('date')
                         ->get();
                 }
@@ -178,39 +181,46 @@ class MusicLessonController extends Controller
     }
 
     public function bookLesson(Request $request, MusicLesson $lesson)
-    {
-        try {
-            if (!auth::check()) {
-                return redirect()->route('agenda.index')
-                    ->with('error', 'You must be logged in to book lessons.');
-            }
-
-            // Verify the slot is still available
-            if ($lesson->status !== 'available') {
-                return back()->with('error', 'This time slot is no longer available');
-            }
-
-            $request->validate([
-                'student_id' => 'required|exists:students,id',
-                'is_proefles' => 'boolean', // Now it will be a boolean
-                'comments' => 'nullable|string|max:255',
-            ]);
-
-            // Update the lesson with the correct values
-            $lesson->update([
-                'student_id' => $request->student_id,
-                'status' => 'booked',
-                'is_proefles' => $request->input('is_proefles'), // This will now be true or false
-                'comments' => $request->comments,
-            ]);
-
+{
+    try {
+        if (!Auth::check()) {
             return redirect()->route('agenda.index')
-                ->with('success', 'Lesson booked successfully');
-        } catch (\Exception $e) {
-            return redirect()->route('agenda.index')
-                ->with('error', 'An error occurred while booking the lesson. Please try again.');
+                ->with('error', 'You must be logged in to book lessons.');
         }
+
+        // Verify the slot is still available
+        if ($lesson->status !== 'available') {
+            return back()->with('error', 'This time slot is no longer available');
+        }
+
+        $request->validate([
+            'student_id' => 'required|exists:students,id',
+            'is_proefles' => 'boolean', // Ensure this is a boolean
+            'comments' => 'nullable|string|max:255',
+        ]);
+
+        // Determine if this is a trial lesson
+        $isProefles = $request->input('is_proefles', false); // Default to false if not provided
+
+        // Update the lesson status accordingly
+        $lesson->update([
+            'student_id' => $request->student_id,
+            'status' => $isProefles ? 'pending' : 'booked', // Trial lessons go to 'pending'
+            'is_proefles' => $isProefles,
+            'comments' => $request->comments,
+        ]);
+
+        $message = $isProefles 
+            ? 'Trial lesson request sent for approval.' 
+            : 'Lesson booked successfully';
+
+        return redirect()->route('agenda.index')
+            ->with('success', $message);
+    } catch (\Exception $e) {
+        return redirect()->route('agenda.index')
+            ->with('error', 'An error occurred while booking the lesson. Please try again.');
     }
+}
 
     public function cancelLesson(MusicLesson $lesson)
     {
@@ -274,5 +284,67 @@ class MusicLessonController extends Controller
         }
 
         return back()->with('error', 'Unable to process cancellation');
+    }
+    public function pendingProeflessen()
+    {
+
+        $user = Auth::user();
+    
+
+        if ($user->role !== 'teacher') {
+            return redirect()->route('agenda.index')
+                ->with('error', 'only teachers can approve trial lessons.');
+        }
+    
+        // Haal de wachtende proeflessen op voor de docent
+        $pendingLessons = MusicLesson::with('student', 'teacher')  // Laad de nodige relaties
+            ->where('teacher_id', $user->teacher->id)  // Filter op de docent die is ingelogd
+            ->where('is_proefles', true)  // Zorg ervoor dat het proeflessen zijn
+            ->where('status', 'pending')  // Filter op status 'pending'
+            ->orderBy('date', 'asc')  // Sorteer op datum
+            ->get();
+    
+        // Geef de wachtende proeflessen door aan de view
+        return view('agenda.pending-proeflessen', compact('pendingLessons')); 
+    }
+
+    // Methode voor het goedkeuren van een proefles
+    public function approveProefles(MusicLesson $lesson)
+    {
+        $user = Auth::user();
+
+        if ($user->role !== 'teacher' || $user->teacher->id !== $lesson->teacher_id) {
+            return redirect()->route('agenda.index')
+                ->with('error', 'You do not have permission to approve this trial lesson.');
+        }
+
+        // Update de status naar 'booked' en zet is_proefles op true
+        $lesson->status = 'booked';
+        $lesson->save();
+
+        return redirect()->route('lessons.pending')
+            ->with('success', 'Trial lesson approved!');
+    }
+
+    // Methode voor het afwijzen van een proefles
+    public function declineProefles(MusicLesson $lesson)
+    {
+        $user = Auth::user();
+    
+        if ($user->role !== 'teacher' || $user->teacher->id !== $lesson->teacher_id) {
+            return redirect()->route('agenda.index')
+                ->with('error', 'You do not have permission to decline this trial lesson.');
+        }
+    
+        // Reset the lesson to 'available' and clear student data
+        $lesson->update([
+            'status' => 'available',
+            'is_proefles' => false,
+            'student_id' => null, // Detach the student
+            'comments' => null,   // Remove any comments
+        ]);
+    
+        return redirect()->route('lessons.pending')
+            ->with('success', 'Trial lesson rejected.');
     }
 }
