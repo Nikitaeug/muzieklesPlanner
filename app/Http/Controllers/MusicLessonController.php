@@ -15,7 +15,6 @@ class MusicLessonController extends Controller
     {
         $user = Auth::user();
 
-
         switch ($user->role) {
             case 'admin':
                 $events = MusicLesson::with(['teacher', 'student.user'])
@@ -44,8 +43,21 @@ class MusicLessonController extends Controller
                 }
                 break;
 
-            default:
+            case 'guardian':
+                // Get all lessons for the guardian's children
+                $guardian = $user->guardian;
+                if ($guardian) {
+                    $studentIds = Student::where('guardian_id', $guardian->id)
+                        ->pluck('id');
+                    
+                    $events = MusicLesson::with(['teacher', 'student.user'])
+                        ->whereIn('student_id', $studentIds)
+                        ->orderBy('date')
+                        ->get();
+                }
+                break;
 
+            default:
                 $events = [];
                 break;
         }
@@ -156,7 +168,7 @@ class MusicLessonController extends Controller
             ->orderBy('start_time')
             ->get();
 
-        // Fetch children for guardians
+        
         $children = [];
         if (auth::check() && auth::user()->role === 'guardian') {
             $children = Student::where('guardian_id', auth::user()->guardian->id)->get();
@@ -220,18 +232,20 @@ class MusicLessonController extends Controller
             $hasPermission = $lesson->teacher_id === $user->teacher->id;
         } elseif ($user->role === 'student' && $user->student) {
             $hasPermission = $lesson->student_id === $user->student->id;
+        } elseif ($user->role === 'guardian' && $user->guardian) {
+            // Check if the lesson's student is one of the guardian's children
+            $guardianStudentIds = Student::where('guardian_id', $user->guardian->id)->pluck('id');
+            $hasPermission = $guardianStudentIds->contains($lesson->student_id);
         } else {
             $hasPermission = false;
         }
 
-        Log::info('Permission Check Result', ['hasPermission' => $hasPermission]);
 
         if (!$hasPermission) {
             return back()->with('error', 'Unauthorized to cancel this lesson');
         }
 
-        // If the user is a student, update the lesson status
-        if ($user->role === 'student') {
+        if ($user->role === 'student' || $user->role === 'guardian') {
             if ($lesson->status === 'booked') {
                 Log::info('Attempting to update lesson', [
                     'before_update' => $lesson->toArray()
@@ -252,7 +266,7 @@ class MusicLessonController extends Controller
             }
         }
 
-        // If the user is an admin or teacher, delete the lesson
+
         if ($user->role === 'admin' || ($user->role === 'teacher' && $lesson->teacher_id === $user->teacher->id)) {
             $lesson->delete();
             return redirect()->route('agenda.index')
