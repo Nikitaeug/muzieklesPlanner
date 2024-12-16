@@ -102,4 +102,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/cancel-lesson/{lesson}', [MusicLessonController::class, 'cancelLesson'])
         ->name('agenda.cancel');
 
+        // Route om de pending proeflessen van een docent te bekijken
+    Route::get('/lessons/pending', [MusicLessonController::class, 'pendingProeflessen'])->name('lessons.pending');
+
+        // Route voor het goedkeuren van een proefles
+    Route::post('/lessons/{lesson}/approve', [MusicLessonController::class, 'approveProefles'])->name('lessons.approve');
+    
+        // Route voor het afwijzen van een proefles
+    Route::post('/lessons/{lesson}/decline', [MusicLessonController::class, 'declineProefles'])->name('lessons.decline');
+
 });
