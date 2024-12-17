@@ -329,7 +329,7 @@ class MusicLessonController extends Controller
     // Methode voor het afwijzen van een proefles
     public function declineProefles(MusicLesson $lesson)
     {
-        $user = Auth::user();
+        $user = Auth::user();   
     
         if ($user->role !== 'teacher' || $user->teacher->id !== $lesson->teacher_id) {
             return redirect()->route('agenda.index')

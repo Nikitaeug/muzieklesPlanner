@@ -104,34 +104,37 @@ class DashboardController extends Controller
 
     private function getGuardianDashboardData($user)
     {
-        $childrenIds = Student::where('guardian_id', $user->id)
+        $guardian = $user->guardian;
+        $childrenIds = Student::where('guardian_id', $guardian->id)
             ->pluck('id');
-
+            
         $totalChildrenLessons = MusicLesson::whereIn('student_id', $childrenIds)
             ->count();
 
         $childrenCount = $childrenIds->count();
 
-        $childrenLessons = MusicLesson::with(['student', 'teacher.user'])
+        $lessons = MusicLesson::with(['student.user', 'teacher.user'])
             ->whereIn('student_id', $childrenIds)
             ->orderBy('date', 'desc')
             ->take(5)
             ->get()
             ->map(function ($lesson) {
-                return [
-                    'title' => $lesson->title,
-                    'student_name' => $lesson->student->name ?? 'Unknown Student',
-                    'teacher_name' => $lesson->teacher->user->name ?? 'Unknown Teacher',
+                return (object)[
+                    'title' => $lesson->title ?? 'Untitled Lesson',
+                    'student_name' => optional($lesson->student->user)->name ?? 'Unknown Student',
+                    'teacher_name' => optional($lesson->teacher->user)->name ?? 'Unknown Teacher',
                     'status' => Carbon::parse($lesson->date)->isPast() ? 'completed' : 'upcoming',
-                    'comment' => $lesson->comments,
-                    'created_at' => $lesson->created_at
+                    'comment' => $lesson->comments ?? '',
+                    'created_at' => $lesson->created_at,
+                    'date' => $lesson->date
                 ];
             });
 
         return [
             'totalChildrenLessons' => $totalChildrenLessons,
             'childrenCount' => $childrenCount,
-            'childrenLessons' => $childrenLessons
+            'childrenLessons' => $lessons,
+            'role' => 'guardian'
         ];
     }
 
