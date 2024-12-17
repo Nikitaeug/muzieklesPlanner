@@ -15,7 +15,6 @@ class MusicLessonController extends Controller
     {
         $user = Auth::user();
 
-
         switch ($user->role) {
             case 'admin':
                 $events = MusicLesson::with(['teacher', 'student.user'])
@@ -47,8 +46,21 @@ class MusicLessonController extends Controller
                 }
                 break;
 
-            default:
+            case 'guardian':
+                // Get all lessons for the guardian's children
+                $guardian = $user->guardian;
+                if ($guardian) {
+                    $studentIds = Student::where('guardian_id', $guardian->id)
+                        ->pluck('id');
+                    
+                    $events = MusicLesson::with(['teacher', 'student.user'])
+                        ->whereIn('student_id', $studentIds)
+                        ->orderBy('date')
+                        ->get();
+                }
+                break;
 
+            default:
                 $events = [];
                 break;
         }
@@ -159,7 +171,7 @@ class MusicLessonController extends Controller
             ->orderBy('start_time')
             ->get();
 
-        // Fetch children for guardians
+        
         $children = [];
         if (auth::check() && auth::user()->role === 'guardian') {
             $children = Student::where('guardian_id', auth::user()->guardian->id)->get();
@@ -213,34 +225,65 @@ class MusicLessonController extends Controller
     public function cancelLesson(MusicLesson $lesson)
     {
         $user = Auth::user();
+        
+        Log::info('Cancel Lesson Attempt', [
+            'user_role' => $user->role,
+            'user_id' => $user->id,
+            'lesson_id' => $lesson->id,
+            'lesson_status' => $lesson->status,
+            'lesson_student_id' => $lesson->student_id,
+            'user_student_id' => $user->student->id ?? null
+        ]);
 
         // Check if user has permission to cancel
-        if (!($user->role === 'admin' ||
-            ($user->role === 'teacher' && $lesson->teacher_id === $user->teacher->id) ||
-            ($user->role === 'student' && $lesson->student_id === $user->student->id))) {
+        if ($user->role === 'admin') {
+            $hasPermission = true;
+        } elseif ($user->role === 'teacher' && $user->teacher) {
+            $hasPermission = $lesson->teacher_id === $user->teacher->id;
+        } elseif ($user->role === 'student' && $user->student) {
+            $hasPermission = $lesson->student_id === $user->student->id;
+        } elseif ($user->role === 'guardian' && $user->guardian) {
+            // Check if the lesson's student is one of the guardian's children
+            $guardianStudentIds = Student::where('guardian_id', $user->guardian->id)->pluck('id');
+            $hasPermission = $guardianStudentIds->contains($lesson->student_id);
+        } else {
+            $hasPermission = false;
+        }
+
+
+        if (!$hasPermission) {
             return back()->with('error', 'Unauthorized to cancel this lesson');
         }
 
-        // If the user is an admin or teacher, delete the lesson
+        if ($user->role === 'student' || $user->role === 'guardian') {
+            if ($lesson->status === 'booked') {
+                Log::info('Attempting to update lesson', [
+                    'before_update' => $lesson->toArray()
+                ]);
+
+                $lesson->status = 'available';
+                $lesson->student_id = null;
+                $lesson->is_proefles = false;
+                $lesson->comments = null;
+                $lesson->save();
+
+                Log::info('After update', [
+                    'after_update' => $lesson->fresh()->toArray()
+                ]);
+
+                return redirect()->route('agenda.index')
+                    ->with('success', 'Lesson cancelled successfully');
+            }
+        }
+
+
         if ($user->role === 'admin' || ($user->role === 'teacher' && $lesson->teacher_id === $user->teacher->id)) {
-            $lesson->delete(); // Delete the lesson from the database
+            $lesson->delete();
             return redirect()->route('agenda.index')
                 ->with('success', 'Lesson deleted successfully');
         }
 
-        // If the user is a student, update the lesson status
-        if ($user->role === 'student') {
-            if ($lesson->status === 'booked') {
-                $lesson->update([
-                    'status' => 'available',
-                    'student_id' => null,
-                    'is_proefles' => false,
-                    'comments' => null,
-                ]);
-            }
-            return redirect()->route('agenda.index')
-                ->with('success', 'Lesson status updated successfully');
-        }
+        return back()->with('error', 'Unable to process cancellation');
     }
     public function pendingProeflessen()
     {

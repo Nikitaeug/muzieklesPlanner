@@ -15,10 +15,10 @@ class Feedback extends Model
         'feedback',
     ];
 
-    public function lesson()
-    {
-        return $this->belongsTo(MusicLesson::class);
-    }
+    // public function lesson()
+    // {
+    //     return $this->belongsTo(MusicLesson::class);
+    // }
 
     public function user()
     {

@@ -31,7 +31,6 @@ class AdminController extends Controller
             'guardian_id' => 'nullable|integer',
         ]);
 
-        // Create the user and assign the role
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -42,7 +41,6 @@ class AdminController extends Controller
         $user->role = $request->role;
         $user->save();
 
-        // Handle role-specific attributes
         if ($request->role === 'teacher') {
             Teacher::create([
                 'user_id' => $user->id,

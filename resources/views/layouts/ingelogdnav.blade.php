@@ -1,19 +1,21 @@
 <div class="flex h-auto font-sans tracking-normal leading-normal bg-gray-100">
     <!-- Mobile menu checkbox (hidden) -->
     <input type="checkbox" id="nav-toggle" class="hidden">
-    
+
     <!-- Mobile menu button -->
-    <label for="nav-toggle" class="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-md bg-blue-500 text-white cursor-pointer">
+    <label for="nav-toggle"
+        class="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-md bg-blue-500 text-white cursor-pointer">
         <i class="text-xl iconoir-menu"></i>
     </label>
 
     <!-- Sidebar Navigation -->
-    <nav id="sidebar" class="nav-sidebar fixed lg:sticky top-0 left-0 flex flex-col p-4 w-64 h-screen bg-gradient-to-b from-purple-500 to-blue-500 shadow-lg z-40">
+    <nav id="sidebar"
+        class="nav-sidebar fixed lg:sticky top-0 left-0 flex flex-col p-4 w-64 h-screen bg-gradient-to-b from-purple-500 to-blue-500 shadow-lg z-40">
         <div class="flex items-center mb-6">
             <i class="text-2xl text-white iconoir-music-note"></i>
             <span class="ml-2 text-xl font-bold text-white">Music Academy</span>
         </div>
-        
+
         <!-- Close button for mobile -->
         <label for="nav-toggle" class="lg:hidden absolute top-4 right-4 text-white cursor-pointer">
             <i class="text-xl iconoir-cancel"></i>
@@ -36,7 +38,7 @@
             </li>
             @if (auth()->user()->role != 'admin')
             <li class="mb-4">
-                <a href="{{route('agenda.available-slots')}}"
+                <a href="{{ route('agenda.available-slots') }}"
                     class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
                     <i class="text-xl iconoir-calendar"></i>
                     <span class="ml-2">available time slots</span>
@@ -44,19 +46,19 @@
             </li>
             @endif
 
-       
-            
+
+
             @if (auth()->user()->role == 'admin')
-            <li class="mb-4">
-                <a href="{{route('users.index')}}"
-                    class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
-                    <i class="text-xl iconoir-user-circle"></i>
-                    <span class="ml-2">all users</span>
-                </a>
-            </li>
-            <li class="mb-4">
-                <a href="{{ route('admin.register') }}"
-                class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
+                <li class="mb-4">
+                    <a href="{{ route('users.index') }}"
+                        class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
+                        <i class="text-xl iconoir-user-circle"></i>
+                        <span class="ml-2">all users</span>
+                    </a>
+                </li>
+                <li class="mb-4">
+                    <a href="{{ route('admin.register') }}"
+                        class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
                         <i class="text-xl iconoir-user-plus"></i>
                         <span class="ml-2">Add new User</span>
                     </a>
@@ -78,26 +80,34 @@
                     </a>
                 </li>
 
+
+                <li class="mb-4">
+                    <a href="/feedback/create"
+                        class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
+                        <i class="text-xl iconoir-user-circle"></i>
+                        <span class="ml-2">add feedback</span>
+                    </a>
+                </li>
             @endif
 
             @if (auth()->user()->role == 'student')
-            <li class="mb-4">
-                <a href="/studentGuardian"
-                    class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
-                    <i class="text-xl iconoir-user-circle"></i>
-                    <span class="ml-2">Manage guardian</span>
-                </a>
-            </li>
+                <li class="mb-4">
+                    <a href="/studentGuardian"
+                        class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
+                        <i class="text-xl iconoir-user-circle"></i>
+                        <span class="ml-2">Manage guardian</span>
+                    </a>
+                </li>
             @endif
 
             @if (auth()->user()->role == 'guardian')
-            <li class="mb-4">
-                <a href="/studentGuardian"
-                    class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
-                    <i class="text-xl iconoir-user-circle"></i>
-                    <span class="ml-2">Manage Child</span>
-                </a>
-            </li>
+                <li class="mb-4">
+                    <a href="/studentGuardian"
+                        class="flex items-center p-2 text-white rounded transition duration-300 hover:bg-blue-600">
+                        <i class="text-xl iconoir-user-circle"></i>
+                        <span class="ml-2">Manage Child</span>
+                    </a>
+                </li>
 
             <li class="mb-4">
                 <a href="{{ route('feedback.index') }}"
@@ -134,7 +144,7 @@
                     </a>
                 </li>
             @endif
-          
+
         </ul>
 
         <div class="mt-auto space-y-2">
@@ -169,16 +179,16 @@
             transform: translateX(-100%);
             transition: transform 0.3s ease-in-out;
         }
-        
-        #nav-toggle:checked ~ .nav-sidebar {
+
+        #nav-toggle:checked~.nav-sidebar {
             transform: translateX(0);
         }
-        
-        #nav-toggle:checked ~ .overlay {
+
+        #nav-toggle:checked~.overlay {
             display: block;
         }
-        
-        #nav-toggle:checked ~ * {
+
+        #nav-toggle:checked~* {
             overflow: hidden;
         }
     }

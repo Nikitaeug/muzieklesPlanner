@@ -10,8 +10,6 @@
                     class="px-2 py-1 text-white rounded-full transition transform duration-600 hover:scale-105 hover:bg-blue-700 hover:shadow-lg">Home</a>
                 <a href="/about"
                     class="px-2 py-1 text-white rounded-full transition transform duration-600 hover:scale-105 hover:bg-blue-700 hover:shadow-lg">About</a>
-                <a href="/lessons"
-                    class="px-2 py-1 text-white rounded-full transition transform duration-600 hover:scale-105 hover:bg-blue-700 hover:shadow-lg">Lessons</a>
                 <a href="/contact"
                     class="px-2 py-1 text-white rounded-full transition transform duration-600 hover:scale-105 hover:bg-blue-700 hover:shadow-lg">Contact</a>
             </nav>
@@ -42,10 +40,6 @@
                 <a href="/about"
                     class="px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 rounded-xl transition-colors duration-200">
                     <span class="font-medium">About</span>
-                </a>
-                <a href="/lessons"
-                    class="px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 rounded-xl transition-colors duration-200">
-                    <span class="font-medium">Lessons</span>
                 </a>
                 <a href="/contact"
                     class="px-4 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 rounded-xl transition-colors duration-200">

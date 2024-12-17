@@ -1,4 +1,5 @@
 <x-app-layout>
+    
     <div class="py-6 sm:py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4 sm:p-6">
@@ -21,6 +22,7 @@
                                         @csrf
                                         <input type="hidden" name="student_id" value="{{ auth()->user()->student->id }}">
                                         <div>
+                                            <input type="hidden" name="is_proefles" value="0">
                                             <label class="flex items-center text-white text-sm">
                                                 <input type="checkbox" name="is_proefles" value="1" class="mr-2">
                                                 Trial Lesson
@@ -47,6 +49,7 @@
                                             </select>
                                         </div>
                                         <div>
+                                            <input type="hidden" name="is_proefles" value="0">
                                             <label class="flex items-center text-white text-sm">
                                                 <input type="checkbox" name="is_proefles" value="1" class="mr-2">
                                                 Trial Lesson
