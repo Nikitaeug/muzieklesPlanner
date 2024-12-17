@@ -48,7 +48,7 @@
                                         </div>
                                         <div>
                                             <label class="flex items-center text-white text-sm">
-                                                <input type="checkbox" name="is_proefles" class="mr-2">
+                                                <input type="checkbox" name="is_proefles" value="1" class="mr-2">
                                                 Trial Lesson
                                             </label>
                                         </div>
